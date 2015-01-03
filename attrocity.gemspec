@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Attrocity::VERSION
   spec.authors       = ["TJ Stankus"]
   spec.email         = ["tjstankus@gmail.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
-  spec.homepage      = ""
+  spec.summary       = %q{Declarative attributes in Ruby}
+  spec.description   = %q{You should totally be using Virtus instead of this}
+  spec.homepage      = "https://github.com/tjstankus/attrocity"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

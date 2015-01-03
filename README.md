@@ -1,6 +1,6 @@
 # Attrocity
 
-TODO: Write a gem description
+You should totally be using [Virtus](https://github.com/solnic/virtus) instead.
 
 ## Installation
 
@@ -20,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Don't
 
 ## Contributing
 
