@@ -43,3 +43,20 @@ attributes do
 end
 ```
 
+I think it's okay to assume a hash on initialization, but not assume anything
+about the internals of the hash, e.g., values are strings.
+
+Lightweight indifferent access to hash? If possible avoid active_support
+inclusion - ends up causing gem version errors in clients.
+
+Prefer include over inheritance
+
+### AttributeSet
+
+- AttributeSet#to_h
+- AttributeSet#to_value_object
+
+Value object may be the wrong term. It may be 'immutable' not value. Investigate
+ways to generate bare immutable objects in Ruby.
+
+
