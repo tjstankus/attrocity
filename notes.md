@@ -58,5 +58,7 @@ Prefer include over inheritance
 
 Value object may be the wrong term. It may be 'immutable' not value. Investigate
 ways to generate bare immutable objects in Ruby.
+[immutable_struct](https://github.com/iconara/immutable_struct) looks like a
+good and not bloated option. It's a bit dated, so might need to be forked.
 
 
