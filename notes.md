@@ -51,6 +51,17 @@ inclusion - ends up causing gem version errors in clients.
 
 Prefer include over inheritance
 
+### Defaults
+
+How to handle defaults because `Integer(nil)` raises an error
+
+Ideas for how to handle defaults?
+- App configures built-in Attribute::Integer to default to a number like 0
+- Declaratively override the default, which takes precedence over config
+- Use your own Attribute object
+- Leave it alone and get nil
+- How does validation relate to this?
+
 ### AttributeSet
 
 - AttributeSet#to_h
@@ -61,4 +72,11 @@ ways to generate bare immutable objects in Ruby.
 [immutable_struct](https://github.com/iconara/immutable_struct) looks like a
 good and not bloated option. It's a bit dated, so might need to be forked.
 
+Lightweight, but not great option:
+
+```ruby
+# from attributes hash
+Struct.new(*keys).new(*values).freeze
+# raises a RuntimeError on mutation
+```
 
