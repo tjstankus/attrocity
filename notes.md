@@ -8,6 +8,14 @@ Design inspiration
 - attrio
   http://igor-alexandrov.github.io/blog/2013/05/23/attrio-typed-attributes-for-ruby-objects/
 
+Tasks
+-----
+
+- [ ] Try simplest idea (Virtus style)
+
+- [ ] Go read on DSLs and gather ideas
+
+
 Ideas
 -----
 
@@ -21,8 +29,26 @@ In terms of a declarative API, I do like Virtus's interface, but I'm leaning
 toward something less type-specific. Something like:
 
 ```ruby
-attribute :name, :string
+# Virtus-style
+class MyClass
+  include Attrocity # might have a variant like Attrocity.model
+
+  attribute :name, :string
+end
+
+module MyModule
+  include Attrocity # might have a variant like Attrocity.model
+
+  attribute :height, :integer
+end
 ```
+
+On initialize, attributes are collected into an instance-scope AttributeSet.
+When an instance of this class is extended, e.g., `my_class.extend(MyModule)`,
+the attribute set of the instance gets the attributes of the module. This is
+very much like Virtus, only we're working with instances. We might also work
+with classes, but definitely instances, which allows us to do DCI-style dynamic
+role/behavior extensions.
 
 - [ ] Would this API work for custom attribute types.
 
@@ -50,6 +76,14 @@ Lightweight indifferent access to hash? If possible avoid active_support
 inclusion - ends up causing gem version errors in clients.
 
 Prefer include over inheritance
+
+### Other DSL ideas
+
+```ruby
+Attributes.define do
+  attribute :name, :string
+end
+```
 
 ### Defaults
 
