@@ -1,5 +1,5 @@
 module Examples
-  class Person
-    attribute :age
-  end
+  # class Person
+  #   attribute :age
+  # end
 end
