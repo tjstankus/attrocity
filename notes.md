@@ -8,6 +8,7 @@ Design inspiration
 - attrio
   http://igor-alexandrov.github.io/blog/2013/05/23/attrio-typed-attributes-for-ruby-objects/
 
+
 Tasks
 -----
 
@@ -114,3 +115,24 @@ Struct.new(*keys).new(*values).freeze
 # raises a RuntimeError on mutation
 ```
 
+### Hooks
+
+Implement Mod.extended(obj) hook such that when the obj.extend(Mod) triggers it,
+the obj.attribute_set is merged with Mod.attributes (or Mod.attribute_set)
+
+
+Coercers
+--------
+
+Comes with a default set of coercers.
+
+Additional coercers are added through a registry?
+
+Emphasize custom coercion over types. For example,
+
+```ruby
+attribute :publication, :book # looks for a Book coercer
+```
+
+Coercers are probably initialized with an attribute. That way they can get
+defaults, etc.
