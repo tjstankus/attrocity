@@ -115,6 +115,8 @@ Struct.new(*keys).new(*values).freeze
 # raises a RuntimeError on mutation
 ```
 
+Attrocity objets forward #umapped_attributes and #attributes to AttributeSet
+
 ### Hooks
 
 Implement Mod.extended(obj) hook such that when the obj.extend(Mod) triggers it,

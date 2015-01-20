@@ -24,7 +24,11 @@ module Attrocity
         }.not_to raise_error
       end
 
-      it 'returns an attribute'
+      it 'creates a reader method' do
+        pending
+        obj = Examples::Person.new(age: 29)
+        expect(obj.respond_to?(:age)).to be true
+      end
     end
 
     describe '#attribute_set' do
@@ -36,5 +40,16 @@ module Attrocity
       end
     end
 
+    describe '#unmapped_attributes' do
+      it 'forwards to attribute_set'
+    end
+
+    describe '#attributes' do
+      it 'forwards to attribute_set'
+    end
+
+    describe '#raw_data' do
+      it 'is not mutated'
+    end
   end
 end

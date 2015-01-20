@@ -10,5 +10,14 @@ module Attrocity
         expect(attribute_names).to include(:age)
       end
     end
+
+    describe '#attributes' do
+      it 'returns a hash of mapped attributes'
+    end
+
+    describe '#unmapped_attributes' do
+      it 'returns a hash of raw attribute names to coerced values'
+      it 'omits unnecessary data'
+    end
   end
 end
