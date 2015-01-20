@@ -1,3 +1,4 @@
+require 'attrocity'
 require 'support/examples'
 
 module Attrocity
@@ -5,15 +6,16 @@ module Attrocity
 
     describe '.attribute' do
       it 'does not raise error' do
-        pending
         expect {
           module Examples
             class Person
+              include Attrocity
               attribute :age, :integer
             end
           end
         }.not_to raise_error
       end
     end
+
   end
 end
