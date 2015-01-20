@@ -1,5 +1,8 @@
+require 'attrocity'
+
 module Examples
-  # class Person
-  #   attribute :age
-  # end
+  class Person
+    include Attrocity
+    attribute :age, :integer
+  end
 end
