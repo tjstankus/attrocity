@@ -19,5 +19,12 @@ module Attrocity
       it 'returns a hash of raw attribute names to coerced values'
       it 'omits unnecessary data'
     end
+
+    describe '#<<' do
+      it 'adds an attribute' do
+      end
+
+      it 'raises error when non-attribute is added'
+    end
   end
 end

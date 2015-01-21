@@ -138,3 +138,30 @@ attribute :publication, :book # looks for a Book coercer
 
 Coercers are probably initialized with an attribute. That way they can get
 defaults, etc.
+
+Some ideas for API, registering coercers
+----------------------------------------
+
+```ruby
+attribute :values, :dimension_values, from: :dimensionvalues
+Attrocity.register :dimension_values, DimensionValuesCoercer
+
+Attrocity.coercers do |register|
+  register DimensionValuesCoercer
+end
+
+class AttrocityCoercer
+  def coerce
+    raise "Must implement in subclass"
+  end
+end
+
+class DimensionValuesCoercer < Attrocity::Coercer
+  # or include AttrocityCoercer, but leaning towards inheritance
+  def coerce(data)
+    data.each do ..
+      DimensionValue.new(
+    end
+  end
+end
+```

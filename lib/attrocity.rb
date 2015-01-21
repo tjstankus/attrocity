@@ -15,6 +15,10 @@ module Attrocity
   module ClassMethods
     def attribute(name, coercer, options={})
     end
+
+    def attribute_set
+      @attribute_set ||= AttributeSet.new
+    end
   end
 
 end
