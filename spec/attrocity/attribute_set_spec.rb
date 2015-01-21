@@ -21,7 +21,12 @@ module Attrocity
     end
 
     describe '#<<' do
+      subject { described_class.new }
+
       it 'adds an attribute' do
+        attr = double('attribute')
+        subject << attr
+        expect(subject.attributes).to include(attr)
       end
 
       it 'raises error when non-attribute is added'

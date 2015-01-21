@@ -18,7 +18,7 @@ module Attrocity
           module Examples
             class Person
               include Attrocity
-              attribute :age, :integer
+              attribute :foo, :bar
             end
           end
         }.not_to raise_error
