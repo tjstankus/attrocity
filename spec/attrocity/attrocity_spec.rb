@@ -10,6 +10,11 @@ module Attrocity
           Examples::Person.new(age: 29)
         }.not_to raise_error
       end
+
+      it 'creates a reader for instance-scope attribute set' do
+        person = Examples::Person.new(age: 29)
+        expect { person.attribute_set }.not_to raise_error
+      end
     end
 
     describe '.attribute' do

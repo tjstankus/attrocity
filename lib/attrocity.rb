@@ -9,15 +9,16 @@ module Attrocity
     base.send(:extend, ClassMethods)
   end
 
+  attr_reader :attribute_set
+
   module Initializer
     def initialize(data={})
-      # Dup/clone class AttributeSet to instance scope
+      @attribute_set = self.class.attribute_set.deep_clone
     end
   end
 
   module ClassMethods
     def attribute(name, coercer, options={})
-      # Create a new Attribute and add it to the class AttributeSet
       attribute_set << Attribute.new(name)
     end
 

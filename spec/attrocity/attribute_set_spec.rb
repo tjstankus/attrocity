@@ -1,13 +1,30 @@
+require 'support/examples'
 require 'attrocity/attribute_set'
 
 module Attrocity
   RSpec.describe AttributeSet do
     describe '#attribute_set' do
       it 'includes age attribute' do
-        pending
         person = Examples::Person.new(age: 29)
         attribute_names = person.attribute_set.attributes.collect(&:name)
         expect(attribute_names).to include(:age)
+      end
+    end
+
+    describe '#deep_clone' do
+      before do
+        @attrs = [Examples.integer_attribute, Examples.string_attribute]
+        @attr_set = AttributeSet.new(@attrs)
+        @attr_set_clone = @attr_set.deep_clone
+      end
+
+      it 'creates a new instance' do
+        expect(@attr_set_clone).not_to equal(@attr_set)
+      end
+
+      it 'deep clones attributes' do
+        expect(@attr_set_clone.attributes.first).not_to equal(
+          @attr_set.attributes.first)
       end
     end
 
