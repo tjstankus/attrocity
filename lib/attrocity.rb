@@ -1,6 +1,7 @@
 require 'attrocity/version'
 require 'attrocity/attribute'
 require 'attrocity/attribute_set'
+require 'attrocity/coercers/integer'
 
 module Attrocity
 
