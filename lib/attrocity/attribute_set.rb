@@ -13,5 +13,15 @@ module Attrocity
     def <<(attribute)
       attributes << attribute
     end
+
+    def to_h
+      # TODO: return a hash of attribute names and values
+    end
+
+    def set_values(data)
+      attributes.each do |attr|
+        attr.value = data.fetch(attr.name)
+      end
+    end
   end
 end

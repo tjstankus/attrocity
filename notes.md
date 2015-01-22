@@ -1,6 +1,17 @@
 Notes
 =====
 
+Current
+-------
+
+Integer coercion:
+
+Inner object, which would mean setting a value on an attribute object as the
+first concern.
+
+** Outer API approach, which means knowing when and how we want to set values on
+the attribute and letting that drive the API.
+
 Design inspiration
 ------------------
 
@@ -16,15 +27,31 @@ Tasks
 
 - [ ] Go read on DSLs and gather ideas
 
+Concepts
+--------
+
+- Coercing: Converting attribute data to the desired type
+
+- Mapping: Getting attribute data from a known hash key that differs from the
+  attribute name
+
 
 Ideas
 -----
+
+Lazy forwarding to attribute_set (using method_missing or similar) will allow us
+to modify the attribute set on an object instance without having to muck around
+with undefining methods and such. For an attribute named :age, we want to allow
+for methods: age, age=, [:age], age?. We want to be able to add and remove
+attributes and the object should just work without a bunch of metaprogramming on
+our part.
 
 I like the idea of attribute "templates" for lack of a better word, which are
 probably just classes. For example, a string attribute (perhaps
 Attrocity::Attribute::String) would supply defaults (coercion, etc.). The only
 things that would need to be plugged in would be the name. Two values, the raw
-value (stored) and the coerced value (output).
+value (stored) and the coerced value (output). This has morphed into coercer
+templates.
 
 In terms of a declarative API, I do like Virtus's interface, but I'm leaning
 toward something less type-specific. Something like:

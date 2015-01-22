@@ -10,11 +10,17 @@ module Attrocity
     base.send(:extend, ClassMethods)
   end
 
-  attr_reader :attribute_set
+  attr_reader :raw_data, :attribute_set
+
+  def attributes
+    attribute_set.to_h
+  end
 
   module Initializer
     def initialize(data={})
+      @raw_data = data
       @attribute_set = self.class.attribute_set.deep_clone
+      @attribute_set.set_values(@raw_data)
     end
   end
 

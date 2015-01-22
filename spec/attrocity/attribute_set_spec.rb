@@ -1,5 +1,6 @@
 require 'support/examples'
 require 'attrocity/attribute_set'
+require 'attrocity/coercers/integer'
 
 module Attrocity
   RSpec.describe AttributeSet do
@@ -28,12 +29,12 @@ module Attrocity
       end
     end
 
-    describe '#attributes' do
-      it 'returns a hash of mapped attributes'
+    describe '#to_h' do
+      it 'returns a hash of attribute names and values'
     end
 
     describe '#unmapped_attributes' do
-      it 'returns a hash of raw attribute names to coerced values'
+      it 'returns a hash of unmapped raw attribute names to coerced values'
       it 'omits unnecessary data'
     end
 
@@ -48,5 +49,15 @@ module Attrocity
 
       it 'raises error when non-attribute is added'
     end
+
+    describe '#set_values' do
+      it 'sets attribute values' do
+        attr = Attribute.new(:age, Coercers::Integer.new)
+        attr_set = AttributeSet.new([attr])
+        attr_set.set_values({ age: 10 })
+        expect(attr.value).to eq(10)
+      end
+    end
+
   end
 end
