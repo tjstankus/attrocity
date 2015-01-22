@@ -1,4 +1,11 @@
+require 'hashie'
+
 module Attrocity
+  class AttributesHash < Hash
+    include Hashie::Extensions::MergeInitializer
+    include Hashie::Extensions::IndifferentAccess
+  end
+
   class AttributeSet
     attr_reader :attributes
 
@@ -19,8 +26,9 @@ module Attrocity
     end
 
     def set_values(data)
+      attributes_hash = AttributesHash.new(data)
       attributes.each do |attr|
-        attr.value = data.fetch(attr.name)
+        attr.value = attributes_hash.fetch(attr.name)
       end
     end
   end

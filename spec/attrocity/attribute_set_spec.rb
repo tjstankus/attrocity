@@ -51,10 +51,16 @@ module Attrocity
     end
 
     describe '#set_values' do
+      let(:attr) { Attribute.new(:age, Coercers::Integer.new) }
+      let(:attr_set) { AttributeSet.new([attr]) }
+
       it 'sets attribute values' do
-        attr = Attribute.new(:age, Coercers::Integer.new)
-        attr_set = AttributeSet.new([attr])
         attr_set.set_values({ age: 10 })
+        expect(attr.value).to eq(10)
+      end
+
+      it 'sets attribute values via indifferent hash keys' do
+        attr_set.set_values({ 'age' => 10 })
         expect(attr.value).to eq(10)
       end
     end
