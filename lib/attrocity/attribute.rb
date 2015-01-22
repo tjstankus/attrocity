@@ -1,6 +1,6 @@
 module Attrocity
   class Attribute
-    attr_reader :name, :coercer
+    attr_reader :name, :coercer, :value
 
     def initialize(name, coercer=Coercers::Integer.new, options={})
       @name = name
@@ -13,10 +13,6 @@ module Attrocity
 
     def value=(value)
       @value = coercer.coerce(value)
-    end
-
-    def value
-      @value
     end
   end
 end
