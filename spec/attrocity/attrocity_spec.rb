@@ -29,10 +29,21 @@ module Attrocity
           module Examples
             class Person
               include Attrocity
-              attribute :foo, :bar
+              attribute :foo, coercer: :bar
             end
           end
         }.not_to raise_error
+      end
+
+      it 'raises error when missing coercer keyword argument' do
+        expect {
+          module Examples
+            class Dog
+              include Attrocity
+              attribute :name
+            end
+          end
+        }.to raise_error(ArgumentError)
       end
 
       it 'creates a reader method' do
