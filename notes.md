@@ -1,6 +1,10 @@
 Notes
 =====
 
+Inventory
+---------
+
+
 Current
 -------
 
@@ -173,16 +177,29 @@ Some ideas for API, registering coercers
 attribute :values, :dimension_values, from: :dimensionvalues
 Attrocity.register :dimension_values, DimensionValuesCoercer
 
+# Ideas for client API to add coercers
 Attrocity.coercers do |register|
   register DimensionValuesCoercer
 end
 
-class AttrocityCoercer
-  def coerce
-    raise "Must implement in subclass"
+Attrocity.coercer_registry do |registry|
+  registry.add(:phone_number, PhoneNumberCoercer)
+end
+
+Attrocity.coercer_registry
+  add :phone_number, PhoneNumberCoercer
+end
+
+# Idea for base class
+module Attrocity
+  class Coercer
+    def coerce
+      raise "Must implement in subclass"
+    end
   end
 end
 
+# Idea for subclass
 class DimensionValuesCoercer < Attrocity::Coercer
   # or include AttrocityCoercer, but leaning towards inheritance
   def coerce(data)
@@ -192,3 +209,19 @@ class DimensionValuesCoercer < Attrocity::Coercer
   end
 end
 ```
+
+I don't think the cost of inheritance is worth the enforcement of implementing a
+simple API. Let's just define what coercers are and document it.
+
+The coercion API is defined as: an instance method called coerce. Why an
+instance method? Because it's more accommodating to future changes.
+
+Is this a registry or simply configuration?
+
+Internally, I think this is a simple hash that maps keys (symbols) to classes
+that implement the coercion API.
+
+Singleton?
+
+1) Allow for adding to the registry via our API
+2) Make it obvious that adding is pretty much all you should do

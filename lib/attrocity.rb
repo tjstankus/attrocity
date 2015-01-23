@@ -1,6 +1,7 @@
 require 'attrocity/version'
 require 'attrocity/attribute'
 require 'attrocity/attribute_set'
+require 'attrocity/coercer_registry'
 require 'attrocity/coercers/integer'
 
 module Attrocity
@@ -36,4 +37,9 @@ module Attrocity
     end
   end
 
+end
+
+Attrocity::CoercerRegistry.register do
+  add :integer, Attrocity::Coercers::Integer
+  add :string, Attrocity::Coercers::String
 end

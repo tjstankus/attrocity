@@ -7,14 +7,19 @@ module Attrocity
       attribute :age, coercer: :integer
     end
 
-    module_function
+    class ExampleCoercer
+      def coerce(value)
+        String(value)
+      end
+    end
 
-    def integer_attribute
+    def self.integer_attribute
       Attrocity::Attribute.new(:an_integer, Attrocity::Coercers::Integer.new)
     end
 
-    def string_attribute
+    def self.string_attribute
       Attrocity::Attribute.new(:a_string, Attrocity::Coercers::Integer.new)
     end
   end
 end
+
