@@ -26,6 +26,7 @@ module Attrocity
   end
 
   module ClassMethods
+    # TODO: options for :default, :from
     def attribute(name, coercer:, from: nil)
       # TODO: Make a coercer object from the coercer registry, for now hardcode
       coercer = Coercers::Integer.new

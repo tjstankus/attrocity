@@ -1,20 +1,13 @@
 Notes
 =====
 
-Inventory
----------
-
-
 Current
 -------
 
-Integer coercion:
 
-Inner object, which would mean setting a value on an attribute object as the
-first concern.
+Inventory
+---------
 
-** Outer API approach, which means knowing when and how we want to set values on
-the attribute and letting that drive the API.
 
 Design inspiration
 ------------------
@@ -24,13 +17,6 @@ Design inspiration
   http://igor-alexandrov.github.io/blog/2013/05/23/attrio-typed-attributes-for-ruby-objects/
 
 
-Tasks
------
-
-- [ ] Try simplest idea (Virtus style)
-
-- [ ] Go read on DSLs and gather ideas
-
 Concepts
 --------
 
@@ -38,6 +24,18 @@ Concepts
 
 - Mapping: Getting attribute data from a known hash key that differs from the
   attribute name
+
+
+Attribute declaration API
+-------------------------
+
+```ruby
+# TODO:
+# - default option
+# - from (mapping) option
+
+attribute :age, coercer: :integer
+```
 
 
 Ideas
@@ -50,31 +48,6 @@ for methods: age, age=, [:age], age?. We want to be able to add and remove
 attributes and the object should just work without a bunch of metaprogramming on
 our part.
 
-I like the idea of attribute "templates" for lack of a better word, which are
-probably just classes. For example, a string attribute (perhaps
-Attrocity::Attribute::String) would supply defaults (coercion, etc.). The only
-things that would need to be plugged in would be the name. Two values, the raw
-value (stored) and the coerced value (output). This has morphed into coercer
-templates.
-
-In terms of a declarative API, I do like Virtus's interface, but I'm leaning
-toward something less type-specific. Something like:
-
-```ruby
-# Virtus-style
-class MyClass
-  include Attrocity # might have a variant like Attrocity.model
-
-  attribute :name, :string
-end
-
-module MyModule
-  include Attrocity # might have a variant like Attrocity.model
-
-  attribute :height, :integer
-end
-```
-
 On initialize, attributes are collected into an instance-scope AttributeSet.
 When an instance of this class is extended, e.g., `my_class.extend(MyModule)`,
 the attribute set of the instance gets the attributes of the module. This is
@@ -82,56 +55,33 @@ very much like Virtus, only we're working with instances. We might also work
 with classes, but definitely instances, which allows us to do DCI-style dynamic
 role/behavior extensions.
 
-- [ ] Would this API work for custom attribute types.
 
-Though the declarative attributes API cannot supply or reference a value, it
-could be the case that when an attribute is instantiated it gets a name and a
-value.
+Validation
+----------
 
-Each attribute has as collaborators: coercer, mapper?, validator?
+Can we just offload validation to custom coercers? Maybe.
+
+
+Documentation
+-------------
 
 Initialization with a hash is probably required.
 
-Instance-scope attribute set, but attributes are declared at class-scope.
-Perhaps "bare" or in a block, e.g.:
 
-```ruby
-attributes do
-  attribute :name, :string
-end
-```
-
-I think it's okay to assume a hash on initialization, but not assume anything
-about the internals of the hash, e.g., values are strings.
-
-Lightweight indifferent access to hash? If possible avoid active_support
-inclusion - ends up causing gem version errors in clients.
-
-Prefer include over inheritance
-
-### Other DSL ideas
-
-```ruby
-Attributes.define do
-  attribute :name, :string
-end
-```
-
-### Defaults
+Defaults
+--------
 
 How to handle defaults because `Integer(nil)` raises an error
 
-Ideas for how to handle defaults?
-- App configures built-in Attribute::Integer to default to a number like 0
-- Declaratively override the default, which takes precedence over config
-- Use your own Attribute object
-- Leave it alone and get nil
-- How does validation relate to this?
+Probably handle defaults at attribute level. Based on default property of an
+attribute instance, it will handle coercion errors accordingly. Does this affect
+validation?
 
 ### AttributeSet
 
 - AttributeSet#to_h
-- AttributeSet#to_value_object
+- AttributeSet#to_value_object. Should attribute_set be the thing that handles
+  handing back a value object.
 
 Value object may be the wrong term. It may be 'immutable' not value. Investigate
 ways to generate bare immutable objects in Ruby.
@@ -146,69 +96,28 @@ Struct.new(*keys).new(*values).freeze
 # raises a RuntimeError on mutation
 ```
 
-Attrocity objets forward #umapped_attributes and #attributes to AttributeSet
+Attrocity objects forward #umapped_attributes and #attributes to AttributeSet
 
 ### Hooks
 
 Implement Mod.extended(obj) hook such that when the obj.extend(Mod) triggers it,
 the obj.attribute_set is merged with Mod.attributes (or Mod.attribute_set)
 
-
 Coercers
 --------
 
 Comes with a default set of coercers.
 
-Additional coercers are added through a registry?
+Additional coercers are added through a registry.
 
-Emphasize custom coercion over types. For example,
+The library emphasizes custom coercion over types. For example,
 
 ```ruby
 attribute :publication, :book # looks for a Book coercer
 ```
 
-Coercers are probably initialized with an attribute. That way they can get
+Should coercers be initialized with an attribute? That way they can get
 defaults, etc.
-
-Some ideas for API, registering coercers
-----------------------------------------
-
-```ruby
-attribute :values, :dimension_values, from: :dimensionvalues
-Attrocity.register :dimension_values, DimensionValuesCoercer
-
-# Ideas for client API to add coercers
-Attrocity.coercers do |register|
-  register DimensionValuesCoercer
-end
-
-Attrocity.coercer_registry do |registry|
-  registry.add(:phone_number, PhoneNumberCoercer)
-end
-
-Attrocity.coercer_registry
-  add :phone_number, PhoneNumberCoercer
-end
-
-# Idea for base class
-module Attrocity
-  class Coercer
-    def coerce
-      raise "Must implement in subclass"
-    end
-  end
-end
-
-# Idea for subclass
-class DimensionValuesCoercer < Attrocity::Coercer
-  # or include AttrocityCoercer, but leaning towards inheritance
-  def coerce(data)
-    data.each do ..
-      DimensionValue.new(
-    end
-  end
-end
-```
 
 I don't think the cost of inheritance is worth the enforcement of implementing a
 simple API. Let's just define what coercers are and document it.
@@ -216,12 +125,3 @@ simple API. Let's just define what coercers are and document it.
 The coercion API is defined as: an instance method called coerce. Why an
 instance method? Because it's more accommodating to future changes.
 
-Is this a registry or simply configuration?
-
-Internally, I think this is a simple hash that maps keys (symbols) to classes
-that implement the coercion API.
-
-Singleton?
-
-1) Allow for adding to the registry via our API
-2) Make it obvious that adding is pretty much all you should do
