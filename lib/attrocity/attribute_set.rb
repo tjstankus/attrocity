@@ -17,9 +17,10 @@ module Attrocity
       self.class.new(attributes.collect(&:deep_clone))
     end
 
-    def <<(attribute)
+    def add(attribute)
       attributes << attribute
     end
+    alias_method :<<, :add
 
     def to_h
       # TODO: return a hash of attribute names and values
