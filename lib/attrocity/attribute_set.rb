@@ -22,6 +22,10 @@ module Attrocity
     end
     alias_method :<<, :add
 
+    def [](attribute_name)
+      attributes.detect { |att| att.name == attribute_name }.value
+    end
+
     def to_h
       # TODO: return a hash of attribute names and values
     end

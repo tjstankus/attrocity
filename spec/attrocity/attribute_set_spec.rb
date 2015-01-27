@@ -12,6 +12,16 @@ module Attrocity
       end
     end
 
+    describe '#[:name]' do
+      let(:attribute) { Attribute.new(:foo, Coercers::String.new) }
+      let(:attribute_set) { AttributeSet.new(Array(attribute)) }
+
+      it 'returns the value of the attribute with the given name' do
+        attribute.value = 'bar'
+        expect(attribute_set[:foo]).to eq('bar')
+      end
+    end
+
     describe '#deep_clone' do
       before do
         @attrs = [Examples.integer_attribute, Examples.string_attribute]
