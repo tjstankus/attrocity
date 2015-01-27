@@ -4,9 +4,60 @@ Notes
 Current
 -------
 
+- Make obj.define_singleton_method, kick off in init.
+
+- [ ] ? Mixing method_missing into an object with a module
+
+- [ ] ? Would defining a method be better since there's a possibility that a
+  method up the chain would respond to something. Yes, I think so.
+
+- [ ] Also override respond_to if defining method missing
+
+If we define the method up front, we'll still defer to the attribute to get the
+value.
+
+Current leanings: see KanbanFlow task.
+
 
 Inventory
 ---------
+
+### Create methods on object for attributes
+
+These should defer to attribute_set. Example:
+
+```ruby
+
+```
+
+### Modules
+
+
+### Mapping
+
+```ruby
+# simple
+attribute :id, coercer: :string, from: :listingid
+
+# less simple
+# worry about this later
+attribute :id, coercer: :string, from: lambda { |data| ... }
+```
+
+This is an example of simple mapping. We have some mapping scenarios that
+involve digging into nested hash keys. Thos should probably be handled with a
+lambda that receives the hash of data the object was initalized with. See
+virtus-mapper for example.
+
+### Default values
+
+For now, let's just implement the simple version of default values. Will need to
+think through best implementation. Guessing some here... the simplest
+implementation is to pass an option to Attribute.new and have the attribute
+handle default values. DO NOT put this responsibility into the coercer. Coercers
+must be kept simple.
+
+### Validation?
 
 
 Design inspiration
