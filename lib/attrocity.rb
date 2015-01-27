@@ -2,7 +2,9 @@ require 'attrocity/version'
 require 'attrocity/attribute'
 require 'attrocity/attribute_set'
 require 'attrocity/coercer_registry'
+require 'attrocity/coercers/boolean'
 require 'attrocity/coercers/integer'
+require 'attrocity/coercers/string'
 
 module Attrocity
 
