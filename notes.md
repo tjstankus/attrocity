@@ -1,6 +1,9 @@
 Notes
 =====
 
+Attribute values are set and retrieved through their containing AttributeSet.
+The Attribute set acts as an aggregate root (in DDD parlance).
+
 Current
 -------
 
