@@ -18,8 +18,7 @@ module Attrocity
       end
 
       it 'creates a reader for attribute' do
-        pending
-        expect(person.age).to eq(29)
+        expect(person.respond_to?(:age)).to be true
       end
     end
 

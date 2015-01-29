@@ -13,17 +13,24 @@ module Attrocity
     base.send(:extend, ClassMethods)
   end
 
-  attr_reader :raw_data, :attribute_set
-
   def attributes
     attribute_set.to_h
   end
+
+  attr_reader :raw_data, :attribute_set
 
   module Initializer
     def initialize(data={})
       @raw_data = data
       @attribute_set = self.class.attribute_set.deep_clone
+
+      # TODO: Do this work elsewhere
       @attribute_set.set_values(@raw_data)
+      @attribute_set.attributes.each do |attribute|
+        define_singleton_method(attribute.name) do
+          attribute.value
+        end
+      end
     end
   end
 
