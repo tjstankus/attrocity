@@ -1,3 +1,4 @@
+# TODO: Cleanup setup code in these specs
 require 'support/examples'
 require 'attrocity/attribute_set'
 require 'attrocity/coercers/integer'
@@ -13,12 +14,12 @@ module Attrocity
     end
 
     describe '#[:name]' do
-      let(:attribute) { Attribute.new(:foo, Coercers::String.new) }
+      let(:attribute) { Examples.string_attribute }
       let(:attribute_set) { AttributeSet.new(Array(attribute)) }
 
       it 'returns the value of the attribute with the given name' do
-        attribute.value = 'bar'
-        expect(attribute_set[:foo]).to eq('bar')
+        attribute_set.set_value_for(attribute.name, 'bar')
+        expect(attribute_set[:a_string]).to eq('bar')
       end
     end
 
@@ -37,6 +38,31 @@ module Attrocity
         expect(@attr_set_clone.attributes.first).not_to equal(
           @attr_set.attributes.first)
       end
+    end
+
+    describe '#create_reader_on' do
+      let(:attribute) { Examples.string_attribute }
+      let(:attr_name) { attribute.name }
+      let(:attribute_set) { AttributeSet.new(Array(attribute)) }
+      let(:object) { double('object') }
+
+      describe 'given an attribute set with one attribute' do
+        it 'creates a reader method for the attribute' do
+          expect {
+            attribute_set.create_reader_on(object)
+          }.to change { object.respond_to?(attr_name) }.from(false).to(true)
+        end
+
+        it 'returns the attribute value from the created reader method' do
+          attribute_set.set_value_for(attr_name, 'foo')
+          attribute_set.create_reader_on(object)
+          expect(object.send(attr_name)).to eq('foo')
+        end
+      end
+    end
+
+    describe '#set_value_for' do
+      it 'sets the value of the attribute with the given name'
     end
 
     describe '#to_h' do

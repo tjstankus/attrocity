@@ -26,11 +26,9 @@ module Attrocity
 
       # TODO: Do this work elsewhere
       @attribute_set.set_values(@raw_data)
-      @attribute_set.attributes.each do |attribute|
-        define_singleton_method(attribute.name) do
-          attribute.value
-        end
-      end
+
+      @attribute_set.create_attribute_methods_on(self)
+
     end
   end
 

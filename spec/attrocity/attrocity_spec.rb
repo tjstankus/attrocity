@@ -20,6 +20,11 @@ module Attrocity
       it 'creates a reader for attribute' do
         expect(person.respond_to?(:age)).to be true
       end
+
+      # TODO: Move this spec to another unit?
+      it 'returns correct value for reader method' do
+        expect(person.age).to eq(29)
+      end
     end
 
     describe '.attribute' do
