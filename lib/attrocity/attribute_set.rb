@@ -33,7 +33,7 @@ module Attrocity
     def set_values(data)
       attributes_hash = AttributesHash.new(data)
       attributes.each do |attr|
-        attr.value = attributes_hash.fetch(attr.name)
+        attr.value = attributes_hash.fetch(attr.mapped_name)
       end
     end
 
@@ -46,7 +46,7 @@ module Attrocity
     end
 
     # TODO: Move create_ methods to a separate object
-    # See: 
+    # See:
     def create_attribute_methods_on(obj)
       attributes.each do |attr|
         create_reader_on(obj, attr)

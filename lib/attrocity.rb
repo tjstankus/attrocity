@@ -31,11 +31,10 @@ module Attrocity
   end
 
   module ClassMethods
-    # TODO: options for :default, :from
+    # TODO: options for :default
     def attribute(name, coercer:, from: nil)
-      # TODO: Make a coercer object from the coercer registry, for now hardcode
-      coercer = Coercers::Integer.new
-      attribute_set << Attribute.new(name, coercer)
+      coercer = CoercerRegistry.coercer_instance_for(coercer)
+      attribute_set << Attribute.new(name, coercer, { from: from })
     end
 
     def attribute_set

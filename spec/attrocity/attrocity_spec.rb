@@ -33,7 +33,7 @@ module Attrocity
           module Examples
             class Person
               include Attrocity
-              attribute :foo, coercer: :bar
+              attribute :foo, coercer: :integer
             end
           end
         }.not_to raise_error
@@ -50,10 +50,15 @@ module Attrocity
         }.to raise_error(ArgumentError)
       end
 
-      it 'creates a reader method' do
-        pending
-        obj = Examples::Person.new(age: 29)
-        expect(obj.respond_to?(:age)).to be true
+      it 'raises error when using coercer name that is not on the registry' do
+        expect {
+          module Examples
+            class Person
+              include Attrocity
+              attribute :foo, coercer: :xyz
+            end
+          end
+        }.to raise_error
       end
     end
 
