@@ -42,35 +42,62 @@ module Attrocity
 
     describe 'attribute access methods' do
       let(:attr_name) { :a_string }
-      let(:attribute_set) {
-        AttributeSet.new(Array(Examples.string_attribute(attr_name)))
-      }
-      let(:object) { double('object') }
-      let(:attribute) { attribute_set.attribute_for_name(attr_name) }
+
+      before do
+        @attribute_set = AttributeSet.new(
+          Array(Examples.string_attribute(attr_name)))
+        @object = Object.new
+        @attribute = @attribute_set.attribute_for_name(attr_name)
+      end
 
       describe '#create_reader_on' do
         before do
-          attribute_set.set_value_for(attr_name, 'foo')
+          @attribute_set.set_value_for(attr_name, 'foo')
         end
 
         it 'creates a reader method for the attribute' do
           expect {
-            attribute_set.create_reader_on(object, attribute)
-          }.to change { object.respond_to?(attr_name) }.from(false).to(true)
+            @attribute_set.create_reader_on(@object, @attribute)
+          }.to change { @object.respond_to?(attr_name) }.from(false).to(true)
         end
 
         it 'returns the attribute value from the created reader method' do
-          attribute_set.create_reader_on(object, attribute)
-          expect(object.send(attr_name)).to eq('foo')
+          @attribute_set.create_reader_on(@object, @attribute)
+          expect(@object.send(attr_name)).to eq(@attribute.value)
         end
       end
 
       describe '#create_writer_on' do
         it 'creates a writer method for the attribute' do
-          pending
           expect {
-            attribute_set.create_reader_on(object, attribute)
-          }.to change { object.respond_to?("#{attr_name}=") }.from(false).to(true)
+            @attribute_set.create_writer_on(@object, @attribute)
+          }.to change { @object.respond_to?("#{attr_name}=") }.from(false).to(true)
+        end
+
+        it 'sets the attribute value' do
+          @attribute_set.create_writer_on(@object, @attribute)
+          @object.send("#{attr_name}=", 'foobar')
+          expect(@attribute.value).to eq('foobar')
+        end
+      end
+
+      describe '#create_predicate_on' do
+        it 'creates a predicate method for the attribute' do
+          expect {
+            @attribute_set.create_predicate_on(@object, @attribute)
+          }.to change { @object.respond_to?("#{attr_name}?") }.from(false).to(true)
+        end
+
+        it 'returns true if the attribute has a truthy value' do
+          @attribute_set.set_value_for(attr_name, 'foo')
+          @attribute_set.create_predicate_on(@object, @attribute)
+          expect(@object.send("#{attr_name}?")).to be true
+        end
+
+        it 'returns false if the attribute has a falsy value' do
+          @attribute_set.create_predicate_on(@object, @attribute)
+          expect(@attribute).to receive(:value).and_return(nil)
+          expect(@object.send("#{attr_name}?")).to be false
         end
       end
     end
