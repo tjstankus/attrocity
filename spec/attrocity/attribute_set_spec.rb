@@ -40,23 +40,37 @@ module Attrocity
       end
     end
 
-    describe '#create_reader_on' do
-      let(:attribute) { Examples.string_attribute }
-      let(:attr_name) { attribute.name }
-      let(:attribute_set) { AttributeSet.new(Array(attribute)) }
+    describe 'attribute access methods' do
+      let(:attr_name) { :a_string }
+      let(:attribute_set) {
+        AttributeSet.new(Array(Examples.string_attribute(attr_name)))
+      }
       let(:object) { double('object') }
+      let(:attribute) { attribute_set.attribute_for_name(attr_name) }
 
-      describe 'given an attribute set with one attribute' do
+      describe '#create_reader_on' do
+        before do
+          attribute_set.set_value_for(attr_name, 'foo')
+        end
+
         it 'creates a reader method for the attribute' do
           expect {
-            attribute_set.create_reader_on(object)
+            attribute_set.create_reader_on(object, attribute)
           }.to change { object.respond_to?(attr_name) }.from(false).to(true)
         end
 
         it 'returns the attribute value from the created reader method' do
-          attribute_set.set_value_for(attr_name, 'foo')
-          attribute_set.create_reader_on(object)
+          attribute_set.create_reader_on(object, attribute)
           expect(object.send(attr_name)).to eq('foo')
+        end
+      end
+
+      describe '#create_writer_on' do
+        it 'creates a writer method for the attribute' do
+          pending
+          expect {
+            attribute_set.create_reader_on(object, attribute)
+          }.to change { object.respond_to?("#{attr_name}=") }.from(false).to(true)
         end
       end
     end

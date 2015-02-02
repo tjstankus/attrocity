@@ -26,9 +26,7 @@ module Attrocity
 
       # TODO: Do this work elsewhere
       @attribute_set.set_values(@raw_data)
-
       @attribute_set.create_attribute_methods_on(self)
-
     end
   end
 

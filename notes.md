@@ -1,26 +1,36 @@
 Notes
 =====
 
-Attribute values are set and retrieved through their containing AttributeSet.
-The Attribute set acts as an aggregate root (in DDD parlance).
-
 Current
 -------
 
-- Make obj.define_singleton_method, kick off in init.
+2 cases for fetching from a mapped key
+1)
+key = attr.mapping_key || attr.name
+attr.value = attributes_hash.fetch(key)
+2)
+attr.mapping.call(attributes_hash)
 
-- [ ] ? Mixing method_missing into an object with a module
+SimpleMapper.initialize(key, default=nil)
 
-- [ ] ? Would defining a method be better since there's a possibility that a
-  method up the chain would respond to something. Yes, I think so.
+`#call` method:
+fetch key from hash called with, using default as 2nd arg to fetch
 
-- [ ] Also override respond_to if defining method missing
+TODO: verify Hash#fetch works like we want it to
 
-If we define the method up front, we'll still defer to the attribute to get the
-value.
+Attribute has mapper (no matter what?)
 
-Current leanings: see KanbanFlow task.
+### Outside-in spec
 
+Attribute has a simple mapper that fetches data from a key in the raw data hash
+that does not match the attribute name
+
+class Listing
+  include Attrocity
+  attribute :id, coercer: :string, from: :listingid
+end
+
+By default
 
 Inventory
 ---------
@@ -178,4 +188,10 @@ simple API. Let's just define what coercers are and document it.
 
 The coercion API is defined as: an instance method called coerce. Why an
 instance method? Because it's more accommodating to future changes.
+
+Documentation for README
+------------------------
+
+Attribute values are set and retrieved through their containing AttributeSet.
+The Attribute set acts as an aggregate root (in DDD parlance).
 

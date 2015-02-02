@@ -14,11 +14,11 @@ module Attrocity
       end
     end
 
-    def self.integer_attribute
+    def self.integer_attribute(name=:an_integer)
       Attrocity::Attribute.new(:an_integer, Attrocity::Coercers::Integer.new)
     end
 
-    def self.string_attribute
+    def self.string_attribute(name=:a_string)
       Attrocity::Attribute.new(:a_string, Attrocity::Coercers::String.new)
     end
 

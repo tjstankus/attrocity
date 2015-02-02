@@ -41,22 +41,24 @@ module Attrocity
       attribute_for_name(attr_name).value = value
     end
 
-    # TODO: Consider moving create_ methods to an object that takes an
-    # attribute_set and an object on instantiation.
+    # TODO: Move create_ methods to a separate object
     def create_attribute_methods_on(obj)
-      create_reader_on(obj)
+      attributes.each do |attr|
+        create_reader_on(obj, attr)
+        create_writer_on(obj, attr)
+      end
       # TODO: :age=
       # obj.age = 39
       # obj.age? => true
     end
 
-    def create_reader_on(obj)
-      attributes.each do |attr|
-        obj.define_singleton_method(attr.name) { attr.value }
-      end
+    def create_reader_on(obj, attribute)
+      obj.define_singleton_method(attribute.name) { attribute.value }
     end
 
-    private
+    def create_writer_on(obj, attribute)
+      obj.define_singleton_method("#{attribute.name}=") { }
+    end
 
     def attribute_for_name(name)
       attributes.detect { |att| att.name == name }
