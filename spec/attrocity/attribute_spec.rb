@@ -13,7 +13,9 @@ module Attrocity
 
     describe '#value=' do
       it 'coerces value' do
-        attr = Attribute.new(:age, Coercers::Integer.new)
+        name = key = :age
+        mapper = Attribute.default_mapper(key)
+        attr = Attribute.new(name, Coercers::Integer.new, mapper)
         attr.value = '10'
         expect(attr.value).to eq(10)
       end

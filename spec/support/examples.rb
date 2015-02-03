@@ -15,11 +15,19 @@ module Attrocity
     end
 
     def self.integer_attribute(name=:an_integer)
-      Attrocity::Attribute.new(:an_integer, Attrocity::Coercers::Integer.new)
+      Attrocity::Attribute.new(name,
+                               Attrocity::Coercers::Integer.new,
+                               default_mapper(name))
     end
 
     def self.string_attribute(name=:a_string)
-      Attrocity::Attribute.new(:a_string, Attrocity::Coercers::String.new)
+      Attrocity::Attribute.new(name,
+                               Attrocity::Coercers::String.new,
+                               default_mapper(name))
+    end
+
+    def self.default_mapper(key)
+      Attrocity::Attribute.default_mapper(key)
     end
 
   end

@@ -30,10 +30,10 @@ module Attrocity
       # TODO: return a hash of attribute names and values
     end
 
-    def set_values(data)
-      attributes_hash = AttributesHash.new(data)
+    def set_values(obj, data)
+      attributes_data = AttributesHash.new(data)
       attributes.each do |attr|
-        attr.value = attributes_hash.fetch(attr.mapped_name)
+        attr.value = attr.mapper_value(obj, attributes_data)
       end
     end
 

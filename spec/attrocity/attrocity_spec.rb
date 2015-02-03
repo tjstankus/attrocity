@@ -31,7 +31,7 @@ module Attrocity
       it 'does not raise error with declarative attribute method' do
         expect {
           module Examples
-            class Person
+            class SpecialPerson
               include Attrocity
               attribute :foo, coercer: :integer
             end
@@ -42,7 +42,7 @@ module Attrocity
       it 'raises error when missing coercer keyword argument' do
         expect {
           module Examples
-            class Dog
+            class SpecialDog
               include Attrocity
               attribute :name
             end

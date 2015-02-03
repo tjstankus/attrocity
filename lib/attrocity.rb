@@ -25,16 +25,16 @@ module Attrocity
       @attribute_set = self.class.attribute_set.deep_clone
 
       # TODO: Do this work elsewhere
-      @attribute_set.set_values(@raw_data)
+      @attribute_set.set_values(self, @raw_data)
       @attribute_set.create_attribute_methods_on(self)
     end
   end
 
   module ClassMethods
     # TODO: options for :default
-    def attribute(name, coercer:, from: nil)
+    def attribute(name, coercer:, from: Attribute.default_mapper(name))
       coercer = CoercerRegistry.coercer_instance_for(coercer)
-      attribute_set << Attribute.new(name, coercer, { from: from })
+      attribute_set << Attribute.new(name, coercer, from)
     end
 
     def attribute_set

@@ -52,7 +52,7 @@ module Attrocity
 
       describe '#create_reader_on' do
         before do
-          @attribute_set.set_value_for(attr_name, 'foo')
+          @attribute_set.set_value_for(attr_name, 'bar')
         end
 
         it 'creates a reader method for the attribute' do
@@ -128,16 +128,18 @@ module Attrocity
     end
 
     describe '#set_values' do
-      let(:attr) { Attribute.new(:age, Coercers::Integer.new) }
+      let(:mapper) { Attribute.default_mapper(:age) }
+      let(:attr) { Attribute.new(:age, Coercers::Integer.new, mapper) }
       let(:attr_set) { AttributeSet.new([attr]) }
+      let(:object) { double('object') }
 
       it 'sets attribute values' do
-        attr_set.set_values({ age: 10 })
+        attr_set.set_values(object, { age: 10 })
         expect(attr.value).to eq(10)
       end
 
       it 'sets attribute values via indifferent hash keys' do
-        attr_set.set_values({ 'age' => 10 })
+        attr_set.set_values(object, { 'age' => 10 })
         expect(attr.value).to eq(10)
       end
     end

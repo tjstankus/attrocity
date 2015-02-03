@@ -4,33 +4,26 @@ Notes
 Current
 -------
 
-2 cases for fetching from a mapped key
-1)
-key = attr.mapping_key || attr.name
-attr.value = attributes_hash.fetch(key)
-2)
-attr.mapping.call(attributes_hash)
+2 events:
+- Load of the attribute-declaring class, which creates the instance of
+  Attribute, but does not know or set anything about the value of the attribute.
+  (It does however, know how to derive the value. ?)
+- Initialization of instance of attribute-declaring class, which gets the data
+  it needs and indeed sets the value. At this point the attribute instance does
+  know self (which I'm not sure we need, but will add for Virtus compatibility)
+  and the attributes hash, which is used to initialize the containing attribute
+  set.
 
-SimpleMapper.initialize(key, default=nil)
+Using a mapper object for simple mapping
 
-`#call` method:
-fetch key from hash called with, using default as 2nd arg to fetch
+To the attribute class method, the from: option is, indeed, an option.
 
-TODO: verify Hash#fetch works like we want it to
+The from: option needs to be turned into a mapper object. Since the attribute
+instance knows what it needs, it should bear the responsibiity of turning the
+from: option argument (either a symbol or a callable object) into the mapper
+method that it j
 
-Attribute has mapper (no matter what?)
-
-### Outside-in spec
-
-Attribute has a simple mapper that fetches data from a key in the raw data hash
-that does not match the attribute name
-
-class Listing
-  include Attrocity
-  attribute :id, coercer: :string, from: :listingid
-end
-
-By default
+Ask Attribute class for the mapper given the
 
 Inventory
 ---------
