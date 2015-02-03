@@ -18,7 +18,6 @@ module Attrocity
       let(:listing) { Examples::Listing.new(data) }
 
       it 'maps attribute data to attribute name' do
-        pending
         expect(listing.id).to eq('1234')
       end
 

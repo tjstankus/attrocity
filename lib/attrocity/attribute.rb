@@ -7,7 +7,7 @@ module Attrocity
     def initialize(name, coercer, mapper, options={})
       @name = name
       @coercer = coercer
-      @mapper = mapper
+      @mapper = init_mapper(mapper)
       @options = options
     end
 
@@ -30,12 +30,12 @@ module Attrocity
 
     private
 
-    def default_mapper
-      KeyMapper.new(mapper_key)
-    end
-
-    def mapper_key
-      options.fetch(:from, name)
+    def init_mapper(mapper_or_symbol)
+      if mapper_or_symbol.respond_to?(:call)
+        mapper_or_symbol
+      else
+        KeyMapper.new(mapper_or_symbol)
+      end
     end
   end
 end
