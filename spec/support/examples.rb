@@ -8,6 +8,11 @@ module Attrocity
       attribute :age, coercer: :integer
     end
 
+    class Listing
+      include Attrocity
+      attribute :id, coercer: :string, from: :listingid
+    end
+
     class ExampleCoercer
       def coerce(value)
         String(value)

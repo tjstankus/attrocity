@@ -4,16 +4,6 @@ require 'attrocity'
 module Attrocity
   RSpec.describe "Mapping" do
     describe 'with symbol mapper' do
-      before do
-        # TODO: Move this class declaration to support/examples.rb
-        module Examples
-          class Listing
-            include Attrocity
-            attribute :id, coercer: :string, from: :listingid
-          end
-        end
-      end
-
       let(:data) { { 'listingid' => '1234' } }
       let(:listing) { Examples::Listing.new(data) }
 
