@@ -42,7 +42,11 @@ module Attrocity
     private
 
     def init_mapper(mapping)
-      mapping.to_mapper
+      if mapping.respond_to?(:call)
+        mapping
+      else
+        KeyMapper.new(mapping)
+      end
     end
   end
 end
