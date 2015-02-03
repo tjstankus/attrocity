@@ -1,4 +1,4 @@
-require 'attrocity/mappers/key_mapper'
+require_relative 'key_mapper'
 
 module Attrocity
 
