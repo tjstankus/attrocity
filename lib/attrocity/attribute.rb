@@ -1,17 +1,7 @@
 require_relative 'key_mapper'
 
 module Attrocity
-
-  module RefinedSymbol
-    refine Symbol do
-      def to_mapper
-        KeyMapper.new(self)
-      end
-    end
-  end
-
   class Attribute
-    using RefinedSymbol
 
     attr_reader :name, :coercer, :mapper, :options, :value
 
