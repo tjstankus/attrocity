@@ -1,13 +1,24 @@
-require_relative 'key_mapper'
+require 'attrocity/mappers/key_mapper'
 
 module Attrocity
+
+  module RefinedSymbol
+    refine Symbol do
+      def to_mapper
+        KeyMapper.new(self)
+      end
+    end
+  end
+
   class Attribute
+    using RefinedSymbol
+
     attr_reader :name, :coercer, :mapper, :options, :value
 
-    def initialize(name, coercer, mapper, options={})
+    def initialize(name, coercer, mapping, options={})
       @name = name
       @coercer = coercer
-      @mapper = init_mapper(mapper)
+      @mapper = init_mapper(mapping)
       @options = options
     end
 
@@ -30,12 +41,8 @@ module Attrocity
 
     private
 
-    def init_mapper(mapper_or_symbol)
-      if mapper_or_symbol.respond_to?(:call)
-        mapper_or_symbol
-      else
-        KeyMapper.new(mapper_or_symbol)
-      end
+    def init_mapper(mapping)
+      mapping.to_mapper
     end
   end
 end
