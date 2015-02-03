@@ -1,7 +1,5 @@
-require_relative 'mapper'
-
 module Attrocity
-  class KeyMapper # < Mapper
+  class KeyMapper
 
     attr_reader :key
 
