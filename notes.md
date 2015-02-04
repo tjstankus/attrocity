@@ -1,6 +1,14 @@
 Notes
 =====
 
+TODO
+----
+
+- Convert all specs to require spec_helper
+
+- Attribute should have a method for setting its own value that take the
+  arguments that attribute set uses to do the job. ???
+
 Current
 -------
 

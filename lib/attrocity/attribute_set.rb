@@ -45,28 +45,8 @@ module Attrocity
       attributes.detect { |att| att.name == name }
     end
 
-    # TODO: Move create_ methods to a separate object
-    # See:
-    def create_attribute_methods_on(obj)
-      attributes.each do |attr|
-        create_reader_on(obj, attr)
-        create_writer_on(obj, attr)
-        create_predicate_on(obj, attr)
-      end
-    end
-
-    def create_reader_on(obj, attribute)
-      obj.define_singleton_method(attribute.name) { attribute.value }
-    end
-
-    def create_writer_on(obj, attribute)
-      obj.define_singleton_method("#{attribute.name}=") { |value|
-        attribute.value = value
-      }
-    end
-
-    def create_predicate_on(obj, attribute)
-      obj.define_singleton_method("#{attribute.name}?") { !!(attribute.value) }
+    def define_attribute_methods_on(obj)
+      AttributeMethodsBuilder.new(obj, attributes).define_methods
     end
   end
 end

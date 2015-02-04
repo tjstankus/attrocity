@@ -5,6 +5,7 @@ require 'attrocity/coercer_registry'
 require 'attrocity/coercers/boolean'
 require 'attrocity/coercers/integer'
 require 'attrocity/coercers/string'
+require 'attrocity/attribute_methods_builder'
 
 module Attrocity
 
@@ -26,7 +27,7 @@ module Attrocity
 
       # TODO: Do this work elsewhere
       @attribute_set.set_values(self, @raw_data)
-      @attribute_set.create_attribute_methods_on(self)
+      @attribute_set.define_attribute_methods_on(self)
     end
   end
 
