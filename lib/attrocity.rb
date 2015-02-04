@@ -11,25 +11,8 @@ require 'attrocity/coercers/string'
 module Attrocity
 
   def self.included(base)
-
-    # TODO: Improve, move, etc.
-    if base.class.name == 'Module'
-      base.module_eval do
-        def self.extend_object(obj)
-          self.attribute_set.attributes.each do |mod_attr|
-            obj.attribute_set << mod_attr
-          end
-          obj.attribute_set.define_attribute_methods_on(obj)
-        end
-      end
-    end
-
     base.send(:prepend, Initializer)
     base.send(:extend, ClassMethods)
-  end
-
-  def attributes
-    attribute_set.to_h
   end
 
   attr_reader :raw_data, :attribute_set
@@ -56,6 +39,23 @@ module Attrocity
     end
   end
 
+  module ModExtensions
+    def self.included(base)
+      base.send(:extend, Attrocity::ClassMethods)
+
+      # TODO: Improve, move, etc.
+      if base.class.name == 'Module'
+        base.module_eval do
+          def self.extend_object(obj)
+            self.attribute_set.attributes.each do |mod_attr|
+              obj.attribute_set << mod_attr
+            end
+            obj.attribute_set.define_attribute_methods_on(obj)
+          end
+        end
+      end
+    end
+  end
 end
 
 Attrocity::CoercerRegistry.register do

@@ -3,7 +3,7 @@ module Attrocity
     before do
       module Examples
         module Spotlight
-          include Attrocity
+          include Attrocity::ModExtensions
           attribute :spotlight, coercer: :boolean
         end
       end
@@ -16,6 +16,6 @@ module Attrocity
       }.to change { listing.respond_to?(:spotlight) }.from(false).to(true)
     end
 
-    it 'adds module attributes to class'
+    it 'adds module attributes to including class'
   end
 end
