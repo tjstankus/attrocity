@@ -5,13 +5,6 @@ require 'attrocity/coercers/integer'
 
 module Attrocity
   RSpec.describe AttributeSet do
-    describe '#attribute_set' do
-      it 'includes age attribute' do
-        person = Examples::Person.new(age: 29)
-        attribute_names = person.attribute_set.attributes.collect(&:name)
-        expect(attribute_names).to include(:age)
-      end
-    end
 
     describe '#[:name]' do
       let(:attribute) { Examples.string_attribute }

@@ -1,6 +1,5 @@
 module Attrocity
   class KeyMapper
-
     attr_reader :key
 
     def initialize(key)

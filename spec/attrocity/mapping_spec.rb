@@ -42,6 +42,5 @@ module Attrocity
       end
     end
 
-
   end
 end
