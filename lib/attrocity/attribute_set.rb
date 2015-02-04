@@ -41,7 +41,7 @@ module Attrocity
       attributes.detect { |att| att.name == name }
     end
 
-    def define_attribute_methods_on(obj)
+    def define_methods(obj)
       AttributeMethodsBuilder.new(obj, attributes).define_methods
     end
   end

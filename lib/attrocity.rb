@@ -3,6 +3,7 @@ require 'attrocity/attribute'
 require 'attrocity/attribute_methods_builder'
 require 'attrocity/attribute_set'
 require 'attrocity/attributes_hash'
+require 'attrocity/module_builder'
 require 'attrocity/coercer_registry'
 require 'attrocity/coercers/boolean'
 require 'attrocity/coercers/integer'
@@ -24,7 +25,7 @@ module Attrocity
 
       # TODO: Do this work elsewhere
       @attribute_set.set_values(self, @raw_data)
-      @attribute_set.define_attribute_methods_on(self)
+      @attribute_set.define_methods(self)
     end
   end
 
@@ -39,23 +40,10 @@ module Attrocity
     end
   end
 
-  module ModExtensions
-    def self.included(base)
-      base.send(:extend, Attrocity::ClassMethods)
-
-      # TODO: Improve, move, etc.
-      if base.class.name == 'Module'
-        base.module_eval do
-          def self.extend_object(obj)
-            self.attribute_set.attributes.each do |mod_attr|
-              obj.attribute_set << mod_attr
-            end
-            obj.attribute_set.define_attribute_methods_on(obj)
-          end
-        end
-      end
-    end
+  def self.module
+    ModuleBuilder.new
   end
+
 end
 
 Attrocity::CoercerRegistry.register do
