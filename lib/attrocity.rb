@@ -47,7 +47,7 @@ module Attrocity
 
   module ClassMethods
     def attribute(name, coercer:, from: Attribute.default_mapper(name))
-      coercer = CoercerRegistry.coercer_instance_for(coercer)
+      coercer = CoercerRegistry.instance_for(coercer)
       attribute_set << Attribute.new(name, coercer, from)
     end
 

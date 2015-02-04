@@ -16,7 +16,7 @@ module Attrocity
       registry[name]
     end
 
-    def self.coercer_instance_for(name)
+    def self.instance_for(name)
       coercer_for(name).new
     end
 
