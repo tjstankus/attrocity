@@ -1,11 +1,12 @@
 require 'attrocity/version'
 require 'attrocity/attribute'
+require 'attrocity/attribute_methods_builder'
 require 'attrocity/attribute_set'
+require 'attrocity/attributes_hash'
 require 'attrocity/coercer_registry'
 require 'attrocity/coercers/boolean'
 require 'attrocity/coercers/integer'
 require 'attrocity/coercers/string'
-require 'attrocity/attribute_methods_builder'
 
 module Attrocity
 

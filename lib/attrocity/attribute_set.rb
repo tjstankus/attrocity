@@ -1,10 +1,6 @@
-require 'hashie'
+require_relative 'attributes_hash'
 
 module Attrocity
-  class AttributesHash < Hash
-    include Hashie::Extensions::MergeInitializer
-    include Hashie::Extensions::IndifferentAccess
-  end
 
   class AttributeSet
     attr_reader :attributes
