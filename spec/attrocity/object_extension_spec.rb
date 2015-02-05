@@ -1,5 +1,5 @@
 module Attrocity
-  RSpec.describe 'Object extension' do
+  RSpec.describe 'Module extension' do
     before(:context) do
       module Examples
         module Spotlight

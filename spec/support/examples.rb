@@ -4,12 +4,12 @@ module Attrocity
   module Examples
 
     class Person
-      include Attrocity
+      include Attrocity.model
       attribute :age, coercer: :integer
     end
 
     class Listing
-      include Attrocity
+      include Attrocity.model
       attribute :id, coercer: :string, from: :listingid
     end
 

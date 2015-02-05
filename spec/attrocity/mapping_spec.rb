@@ -21,7 +21,7 @@ module Attrocity
       before do
         module Examples
           class WithProcMapper
-            include Attrocity
+            include Attrocity.model
             attribute :age,
               coercer: :integer,
               from: lambda { |obj, attrs_data| attrs_data['properties']['age'] }

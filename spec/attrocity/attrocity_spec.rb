@@ -32,7 +32,7 @@ module Attrocity
         expect {
           module Examples
             class SpecialPerson
-              include Attrocity
+              include Attrocity.model
               attribute :foo, coercer: :integer
             end
           end
@@ -43,7 +43,7 @@ module Attrocity
         expect {
           module Examples
             class SpecialDog
-              include Attrocity
+              include Attrocity.model
               attribute :name
             end
           end
@@ -54,7 +54,7 @@ module Attrocity
         expect {
           module Examples
             class Person
-              include Attrocity
+              include Attrocity.model
               attribute :foo, coercer: :xyz
             end
           end
