@@ -25,14 +25,6 @@ module Attrocity
     obj.attribute_set.define_methods(obj)
   end
 
-  module Initializer
-    def initialize(data={})
-      @raw_data = data
-      @attribute_set = self.class.attribute_set.deep_clone
-      Attrocity.perform_attributes_actions(self)
-    end
-  end
-
   module ModuleMethods
     def attribute(name, coercer:, from: Attribute.default_mapper(name))
       coercer = CoercerRegistry.instance_for(coercer)

@@ -7,5 +7,13 @@ module Attrocity
       end
       klass.send(:include, Initializer)
     end
+
+    module Initializer
+      def initialize(data={})
+        @raw_data = data
+        @attribute_set = self.class.attribute_set.deep_clone
+        Attrocity.perform_attributes_actions(self)
+      end
+    end
   end
 end
