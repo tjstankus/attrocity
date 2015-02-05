@@ -4,12 +4,21 @@ require 'attrocity/attribute_methods_builder'
 require 'attrocity/attribute_set'
 require 'attrocity/attributes_hash'
 require 'attrocity/module_builder'
+require 'attrocity/builders/model_builder'
 require 'attrocity/coercer_registry'
 require 'attrocity/coercers/boolean'
 require 'attrocity/coercers/integer'
 require 'attrocity/coercers/string'
 
 module Attrocity
+
+  def self.model
+    ModelBuilder.new
+  end
+
+  def self.module
+    ModuleBuilder.new
+  end
 
   def self.included(base)
     base.send(:prepend, Initializer)
