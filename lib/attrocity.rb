@@ -3,8 +3,8 @@ require 'attrocity/attribute'
 require 'attrocity/attribute_methods_builder'
 require 'attrocity/attribute_set'
 require 'attrocity/attributes_hash'
-require 'attrocity/module_builder'
 require 'attrocity/builders/model_builder'
+require 'attrocity/builders/module_builder'
 require 'attrocity/coercer_registry'
 require 'attrocity/coercers/boolean'
 require 'attrocity/coercers/integer'
@@ -22,7 +22,7 @@ module Attrocity
 
   def self.included(base)
     base.send(:prepend, Initializer)
-    base.send(:extend, ClassMethods)
+    base.send(:extend, ModuleMethods)
   end
 
   attr_reader :raw_data, :attribute_set
@@ -38,7 +38,7 @@ module Attrocity
     end
   end
 
-  module ClassMethods
+  module ModuleMethods
     def attribute(name, coercer:, from: Attribute.default_mapper(name))
       coercer = CoercerRegistry.instance_for(coercer)
       attribute_set << Attribute.new(name, coercer, from)

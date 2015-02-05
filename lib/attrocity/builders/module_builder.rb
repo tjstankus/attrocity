@@ -2,7 +2,7 @@ module Attrocity
   class ModuleBuilder < Module
 
     def included(mod)
-      mod.extend(Attrocity::ClassMethods)
+      mod.extend(Attrocity::ModuleMethods)
       mod.extend(Hooks)
     end
 
