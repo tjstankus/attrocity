@@ -20,21 +20,16 @@ module Attrocity
     ModuleBuilder.new
   end
 
-  def self.included(base)
-    base.send(:prepend, Initializer)
-    base.send(:extend, ModuleMethods)
+  def self.perform_attributes_actions(obj)
+    obj.attribute_set.set_values(obj, obj.raw_data)
+    obj.attribute_set.define_methods(obj)
   end
-
-  attr_reader :raw_data, :attribute_set
 
   module Initializer
     def initialize(data={})
       @raw_data = data
       @attribute_set = self.class.attribute_set.deep_clone
-
-      # TODO: Do this work elsewhere
-      @attribute_set.set_values(self, @raw_data)
-      @attribute_set.define_methods(self)
+      Attrocity.perform_attributes_actions(self)
     end
   end
 
@@ -47,10 +42,6 @@ module Attrocity
     def attribute_set
       @attribute_set ||= AttributeSet.new
     end
-  end
-
-  def self.module
-    ModuleBuilder.new
   end
 
 end
