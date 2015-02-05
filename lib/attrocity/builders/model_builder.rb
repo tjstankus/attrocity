@@ -5,7 +5,7 @@ module Attrocity
       klass.class_eval do
         attr_reader :raw_data, :attribute_set
       end
-      klass.send(:prepend, Initializer)
+      klass.send(:include, Initializer)
     end
   end
 end
