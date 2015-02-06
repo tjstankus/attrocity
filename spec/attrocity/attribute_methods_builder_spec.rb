@@ -8,21 +8,21 @@ module Attrocity
     subject { AttributeMethodsBuilder.new(object, Array(attribute)) }
 
     describe '#define_reader' do
-      it 'creates a reader method for the attribute' do
+      it 'defines a reader method for the attribute' do
         expect {
           subject.define_reader(attribute)
         }.to change { object.respond_to?(attr_name) }.from(false).to(true)
       end
 
-      it 'returns the attribute value from the created reader method' do
+      it 'returns the attribute value from the defined reader method' do
         subject.define_reader(attribute)
         attribute.value = 'foo'
         expect(object.send(attr_name)).to eq('foo')
       end
     end
 
-    describe '#create_writer_on' do
-      it 'creates a writer method for the attribute' do
+    describe '#define_writer' do
+      it 'defines a writer method for the attribute' do
         expect {
           subject.define_writer(attribute)
         }.to change { object.respond_to?("#{attr_name}=") }.from(false).to(true)
@@ -35,8 +35,8 @@ module Attrocity
       end
     end
 
-    describe '#create_predicate_on' do
-      it 'creates a predicate method for the attribute' do
+    describe '#define_predicate' do
+      it 'defines a predicate method for the attribute' do
         expect {
           subject.define_predicate(attribute)
         }.to change { object.respond_to?("#{attr_name}?") }.from(false).to(true)
