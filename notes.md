@@ -9,59 +9,9 @@ TODO
 - Attribute should have a method for setting its own value that take the
   arguments that attribute set uses to do the job. ???
 
-Current
--------
-
-2 events:
-- Load of the attribute-declaring class, which creates the instance of
-  Attribute, but does not know or set anything about the value of the attribute.
-  (It does however, know how to derive the value. ?)
-- Initialization of instance of attribute-declaring class, which gets the data
-  it needs and indeed sets the value. At this point the attribute instance does
-  know self (which I'm not sure we need, but will add for Virtus compatibility)
-  and the attributes hash, which is used to initialize the containing attribute
-  set.
-
-Using a mapper object for simple mapping
-
-To the attribute class method, the from: option is, indeed, an option.
-
-The from: option needs to be turned into a mapper object. Since the attribute
-instance knows what it needs, it should bear the responsibiity of turning the
-from: option argument (either a symbol or a callable object) into the mapper
-method that it j
-
-Ask Attribute class for the mapper given the
 
 Inventory
 ---------
-
-### Create methods on object for attributes
-
-These should defer to attribute_set. Example:
-
-```ruby
-
-```
-
-### Modules
-
-
-### Mapping
-
-```ruby
-# simple
-attribute :id, coercer: :string, from: :listingid
-
-# less simple
-# worry about this later
-attribute :id, coercer: :string, from: lambda { |data| ... }
-```
-
-This is an example of simple mapping. We have some mapping scenarios that
-involve digging into nested hash keys. Thos should probably be handled with a
-lambda that receives the hash of data the object was initalized with. See
-virtus-mapper for example.
 
 ### Default values
 
@@ -91,18 +41,6 @@ Concepts
   attribute name
 
 
-Attribute declaration API
--------------------------
-
-```ruby
-# TODO:
-# - default option
-# - from (mapping) option
-
-attribute :age, coercer: :integer
-```
-
-
 Ideas
 -----
 
@@ -121,16 +59,10 @@ with classes, but definitely instances, which allows us to do DCI-style dynamic
 role/behavior extensions.
 
 
-Validation
-----------
-
-Can we just offload validation to custom coercers? Maybe.
-
-
 Documentation
 -------------
 
-Initialization with a hash is probably required.
+Initialization with a hash is required.
 
 
 Defaults
