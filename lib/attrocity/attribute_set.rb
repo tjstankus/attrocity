@@ -23,7 +23,9 @@ module Attrocity
     end
 
     def to_h
-      # TODO: return a hash of attribute names and values
+      Hash.new.tap do |h|
+        attributes.each { |attr| h[attr.name] = attr.value }
+      end
     end
 
     def set_values(obj, data)
