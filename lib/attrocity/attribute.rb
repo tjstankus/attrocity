@@ -10,6 +10,8 @@ module Attrocity
       @coercer = coercer
       @mapper = init_mapper(mapping)
       @options = options
+      @default = options.fetch(:default, nil)
+      self.value = @default unless @default.nil?
     end
 
     def self.default_mapper(key)
@@ -20,13 +22,16 @@ module Attrocity
       mapper.call(obj, attributes_data)
     end
 
-    # TODO: Should we keep this in sync w/ initialize? Perhaps alias?
+    # TODO: Somehow keep this in sync w/ initialize? Perhaps alias?
     def deep_clone
+      # puts "deep_clone options -- " + options.inspect
       self.class.new(name, coercer, mapper, options)
     end
 
     def value=(value)
+      # puts "value -- " + value.inspect
       @value = coercer.coerce(value)
+      # puts "@value -- " + @value.inspect
     end
 
     private

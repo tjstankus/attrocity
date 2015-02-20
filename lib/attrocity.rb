@@ -3,6 +3,7 @@ require 'attrocity/attribute'
 require 'attrocity/attribute_methods_builder'
 require 'attrocity/attribute_set'
 require 'attrocity/attributes_hash'
+require 'attrocity/model'
 require 'attrocity/builders/model_builder'
 require 'attrocity/builders/module_builder'
 require 'attrocity/coercer_registry'
@@ -26,9 +27,18 @@ module Attrocity
   end
 
   module ModuleMethods
-    def attribute(name, coercer:, from: Attribute.default_mapper(name))
+    def attribute(name,
+                  coercer:,
+                  from: Attribute.default_mapper(name),
+                  default: nil)
       coercer = CoercerRegistry.instance_for(coercer)
-      attribute_set << Attribute.new(name, coercer, from)
+      options = {}
+      if default
+        options[:default] = default
+      end
+      # puts ancestors.inspect
+      # puts options.inspect
+      attribute_set << Attribute.new(name, coercer, from, options)
     end
 
     def attribute_set

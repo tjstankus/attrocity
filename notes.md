@@ -21,6 +21,23 @@ implementation is to pass an option to Attribute.new and have the attribute
 handle default values. DO NOT put this responsibility into the coercer. Coercers
 must be kept simple.
 
+How to handle defaults because `Integer(nil)` raises an error
+
+Probably handle defaults at attribute level. Based on default property of an
+attribute instance, it will handle coercion errors accordingly. Does this affect
+validation?
+
+Default values should not be conflated with coercers. However, when analyzing a
+default value, we might want to check that it does not get transformed when
+coerced. In other words, with an integer coercer and a default value of 1,
+Integer(1) does not change the value, but a default value of '1' would be
+considered incorrect and we could catch that by coercing and comparing.
+
+It should be possible to have a nil value, but I don't like the idea of nil
+being the fallback value. A string coerced attribute should probably default to
+''. Not sure what an integer coerced attribute should default to. Maybe nil as
+fallback is the only consistent way to do this.
+
 ### Validation?
 
 
@@ -64,16 +81,6 @@ Documentation
 
 Initialization with a hash is required.
 
-
-Defaults
---------
-
-How to handle defaults because `Integer(nil)` raises an error
-
-Probably handle defaults at attribute level. Based on default property of an
-attribute instance, it will handle coercion errors accordingly. Does this affect
-validation?
-
 ### AttributeSet
 
 - AttributeSet#to_h
@@ -103,7 +110,7 @@ the obj.attribute_set is merged with Mod.attributes (or Mod.attribute_set)
 Coercers
 --------
 
-Comes with a default set of coercers.
+Comes with a built-in set of coercers.
 
 Additional coercers are added through a registry.
 
