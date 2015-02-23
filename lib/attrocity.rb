@@ -21,6 +21,7 @@ module Attrocity
     ModuleBuilder.new
   end
 
+  # TODO: This should probably be an instance method on obj
   def self.perform_attributes_actions(obj)
     obj.attribute_set.set_values(obj, obj.raw_data)
     obj.attribute_set.define_methods(obj)
@@ -36,8 +37,6 @@ module Attrocity
       if default
         options[:default] = default
       end
-      # puts ancestors.inspect
-      # puts options.inspect
       attribute_set << Attribute.new(name, coercer, from, options)
     end
 
