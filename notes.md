@@ -9,6 +9,12 @@ TODO
 - Attribute should have a method for setting its own value that take the
   arguments that attribute set uses to do the job. ???
 
+- [ ] ? Should attrocity_spec specs be moved to something like module builder
+  spec?
+
+- [ ] ? Re-evaluate attrocity_spec. There are some oddities. It seems like it's
+  been a default place to put spec code that we weren't sure about the eventual
+  home for.
 
 Inventory
 ---------
