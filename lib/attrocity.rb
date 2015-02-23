@@ -4,6 +4,8 @@ require 'attrocity/attribute_methods_builder'
 require 'attrocity/attribute_set'
 require 'attrocity/attributes_hash'
 require 'attrocity/model'
+require 'attrocity/model_attribute'
+require 'attrocity/model_attribute_set'
 require 'attrocity/builders/model_builder'
 require 'attrocity/builders/module_builder'
 require 'attrocity/coercer_registry'
@@ -27,6 +29,10 @@ module Attrocity
     obj.attribute_set.define_methods(obj)
   end
 
+  def self.perform_model_attributes_actions(obj)
+    # define method(s) for model attributes
+  end
+
   module ModuleMethods
     def attribute(name,
                   coercer:,
@@ -40,8 +46,24 @@ module Attrocity
       attribute_set << Attribute.new(name, coercer, from, options)
     end
 
+    def model_attribute(name, model:)
+      ModelAttribute.new(name, model).tap do |model_attr|
+        model_attribute_set << model_attr
+      end
+    end
+
     def attribute_set
       @attribute_set ||= AttributeSet.new
+    end
+
+    def model_attribute_set
+      @model_attribute_set ||= ModelAttributeSet.new
+    end
+
+    private
+
+    def camelize(name)
+      name.to_s.split('_').map { |w| w.capitalize }.join
     end
   end
 

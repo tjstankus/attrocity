@@ -8,9 +8,16 @@ module Attrocity
       attribute :age, coercer: :integer
     end
 
+    class Address
+      include Attrocity.model
+      attribute :street, coercer: :string, from: :addressline1
+      attribute :zip, coercer: :string
+    end
+
     class Listing
       include Attrocity.model
       attribute :id, coercer: :string, from: :listingid
+      model_attribute :address, model: Examples::Address
     end
 
     class ExampleCoercer

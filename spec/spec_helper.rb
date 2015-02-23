@@ -18,7 +18,7 @@
 # TODO: include when examples don't raise errors
 
 require 'attrocity'
-Dir["./spec/support/**/*.rb"].sort.each { |f| require f}
+Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
