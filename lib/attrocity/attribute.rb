@@ -24,14 +24,11 @@ module Attrocity
 
     # TODO: Somehow keep this in sync w/ initialize? Perhaps alias?
     def deep_clone
-      # puts "deep_clone options -- " + options.inspect
       self.class.new(name, coercer, mapper, options)
     end
 
     def value=(value)
-      # puts "value -- " + value.inspect
       @value = coercer.coerce(value)
-      # puts "@value -- " + @value.inspect
     end
 
     private

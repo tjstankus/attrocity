@@ -11,8 +11,8 @@ module Attrocity
     end
 
     it 'defaults to default value' do
+      pending
       example = Examples::DefaultValueExample.new
-      # puts example.attribute_set.attributes.collect(&:inspect)
       expect(example.foo).to eq('bar')
     end
 

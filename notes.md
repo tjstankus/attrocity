@@ -16,6 +16,14 @@ TODO
   been a default place to put spec code that we weren't sure about the eventual
   home for.
 
+Attribute set cloning
+---------------------
+
+Consider making attributes that are attached to a class, that basically act as
+templates for instance attributes, to be a different kind of thing so that we're
+not cloning, per se, but creating an instance variant of the class attribute
+variant on the fly. So, factory approach vs. cloning approach.
+
 Inventory
 ---------
 
