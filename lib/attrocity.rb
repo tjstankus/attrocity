@@ -59,12 +59,6 @@ module Attrocity
     def model_attribute_set
       @model_attribute_set ||= ModelAttributeSet.new
     end
-
-    private
-
-    def camelize(name)
-      name.to_s.split('_').map { |w| w.capitalize }.join
-    end
   end
 
 end
