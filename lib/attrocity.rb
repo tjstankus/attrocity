@@ -29,10 +29,6 @@ module Attrocity
     obj.attribute_set.define_methods(obj)
   end
 
-  def self.perform_model_attributes_actions(obj)
-    # define method(s) for model attributes
-  end
-
   module ModuleMethods
     def attribute(name,
                   coercer:,
