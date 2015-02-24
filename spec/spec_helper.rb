@@ -15,8 +15,6 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-# TODO: include when examples don't raise errors
-
 require 'attrocity'
 Dir["./spec/support/**/*.rb"].sort.each { |f| require f }
 
