@@ -11,8 +11,8 @@ module Attrocity
         self.attribute_set.attributes.each do |mod_attr|
           obj.attribute_set << mod_attr
         end
-        # TODO: Call instance method on obj, when that's ready (see other TODO)
-        Attrocity.perform_attributes_actions(obj)
+        # TODO: https://www.pivotaltracker.com/story/show/89015658
+        obj.setup_attributes
       end
     end
 

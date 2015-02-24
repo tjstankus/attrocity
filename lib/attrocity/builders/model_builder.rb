@@ -13,7 +13,7 @@ module Attrocity
       def initialize(data={})
         @raw_data = data
         @attribute_set = self.class.attribute_set.deep_clone
-        Attrocity.perform_attributes_actions(self)
+        setup_attributes
         setup_model_attributes
       end
     end
@@ -23,7 +23,10 @@ module Attrocity
         Model.new(attribute_set.to_h)
       end
 
-      private
+      def setup_attributes
+        attribute_set.set_values(self, raw_data)
+        attribute_set.define_methods(self)
+      end
 
       def setup_model_attributes
         self.class.model_attribute_set.model_attributes.each do |model_attr|

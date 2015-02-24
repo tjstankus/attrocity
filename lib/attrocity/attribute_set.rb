@@ -43,6 +43,7 @@ module Attrocity
       attributes.detect { |att| att.name == name }
     end
 
+    # TODO: Use a builder for model attributes too?
     def define_methods(obj)
       AttributeMethodsBuilder.new(obj, attributes).define_methods
     end

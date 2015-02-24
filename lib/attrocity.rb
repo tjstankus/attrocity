@@ -23,12 +23,6 @@ module Attrocity
     ModuleBuilder.new
   end
 
-  # TODO: This should probably be an instance method on obj
-  def self.perform_attributes_actions(obj)
-    obj.attribute_set.set_values(obj, obj.raw_data)
-    obj.attribute_set.define_methods(obj)
-  end
-
   module ModuleMethods
     def attribute(name,
                   coercer:,
