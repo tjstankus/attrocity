@@ -20,7 +20,7 @@ module Attrocity
 
     module InstanceMethods
       def model
-        Model.new(attribute_set.to_h)
+        Model.new(attribute_set.to_h.merge(model_attributes_hash))
       end
 
       def setup_attributes
@@ -29,11 +29,26 @@ module Attrocity
       end
 
       def setup_model_attributes
-        self.class.model_attribute_set.model_attributes.each do |model_attr|
+        model_attributes.each do |model_attr|
           name = model_attr.name
           define_singleton_method(name) {
             instance_eval("@#{name} ||= model_attr.model(raw_data)")
           }
+        end
+      end
+
+      private
+
+      def model_attributes
+        @model_attributes ||= self.class.model_attribute_set.model_attributes
+      end
+
+      def model_attributes_hash
+        Hash.new.tap do |h|
+          model_attributes.each do |model_attr|
+            name = model_attr.name
+            h[name] = self.send(name)
+          end
         end
       end
     end

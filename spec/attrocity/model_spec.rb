@@ -12,6 +12,12 @@ module Attrocity
       it 'has correct value for attribute' do
         expect(model.age).to eq(50)
       end
+
+      it 'includes model attributes' do
+        listing = Examples::Listing.new({ id: '1234', zip: '10101' })
+        model = listing.model
+        expect(model.address).not_to be_nil
+      end
     end
   end
 end
