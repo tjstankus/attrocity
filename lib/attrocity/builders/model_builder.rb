@@ -29,8 +29,7 @@ module Attrocity
         self.class.model_attribute_set.model_attributes.each do |model_attr|
           name = model_attr.name
           define_singleton_method(name) {
-            instance_eval("@#{name} ||= " +
-              "model_attr.model_class.new(raw_data).model")
+            instance_eval("@#{name} ||= model_attr.model(raw_data)")
           }
         end
       end
