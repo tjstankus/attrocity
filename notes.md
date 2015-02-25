@@ -1,6 +1,18 @@
 Notes
 =====
 
+Is options a class or a module?
+
+Options attributes are first-class attributes (with coercion, mapping, etc.)
+
+module Foo
+  include Attrocity.object_extension
+end
+
+class Bar
+  include Virtus.model
+end
+
 TODO
 ----
 
