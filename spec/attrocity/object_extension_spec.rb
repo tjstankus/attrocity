@@ -3,12 +3,12 @@ module Attrocity
     before(:context) do
       module Examples
         module Spotlight
-          include Attrocity.module
+          include Attrocity.object_extension
           attribute :spotlight, coercer: :boolean
         end
 
         module MobileSpotlight
-          include Attrocity.module
+          include Attrocity.object_extension
           attribute :spotlight, coercer: :boolean, from: :mobilespotlight
         end
       end
