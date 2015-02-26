@@ -23,6 +23,10 @@ module Attrocity
     ModuleBuilder.new
   end
 
+  def self.object_extension
+    ObjectExtensionBuilder.new
+  end
+
   module ModuleMethods
     def attribute(name,
                   coercer:,
