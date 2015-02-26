@@ -6,8 +6,8 @@ require 'attrocity/attributes_hash'
 require 'attrocity/model'
 require 'attrocity/model_attribute'
 require 'attrocity/model_attribute_set'
+require 'attrocity/builders/object_extension_builder'
 require 'attrocity/builders/model_builder'
-require 'attrocity/builders/module_builder'
 require 'attrocity/coercer_registry'
 require 'attrocity/coercers/boolean'
 require 'attrocity/coercers/integer'
@@ -17,10 +17,6 @@ module Attrocity
 
   def self.model
     ModelBuilder.new
-  end
-
-  def self.module
-    ModuleBuilder.new
   end
 
   def self.object_extension
