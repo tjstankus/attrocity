@@ -1,17 +1,29 @@
 Notes
 =====
 
+ClassAttribute. Does not have a value. Has a default value.
+
+InstanceAttribute. Has a value. Only concerned with default value on
+instantiation.
+
+---
+
+DefaultValue
+NullDefaultValue
+
+Should a default value of nil be supported?
+
+default_value_for
+
+---
+
+clone is confusing
+
+---
+
 Is options a class or a module?
 
 Options attributes are first-class attributes (with coercion, mapping, etc.)
-
-module Foo
-  include Attrocity.object_extension
-end
-
-class Bar
-  include Virtus.model
-end
 
 TODO
 ----

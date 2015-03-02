@@ -31,7 +31,9 @@ module Attrocity
     def set_values(obj, data)
       attributes_data = AttributesHash.new(data)
       attributes.each do |attr|
-        attr.value = attr.mapper_value(obj, attributes_data)
+        if attr.value.nil?
+          attr.value = attr.mapper_value(obj, attributes_data)
+        end
       end
     end
 

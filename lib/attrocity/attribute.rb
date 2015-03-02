@@ -3,7 +3,7 @@ require_relative 'key_mapper'
 module Attrocity
   class Attribute
 
-    attr_reader :name, :coercer, :mapper, :options, :value
+    attr_reader :name, :coercer, :mapper, :options, :value, :default
 
     def initialize(name, coercer, mapping, options={})
       @name = name
@@ -11,7 +11,7 @@ module Attrocity
       @mapper = init_mapper(mapping)
       @options = options
       @default = options.fetch(:default, nil)
-      self.value = @default unless @default.nil?
+      self.value = default unless default.nil?
     end
 
     def self.default_mapper(key)
