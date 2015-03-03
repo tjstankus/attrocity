@@ -4,13 +4,24 @@ module Attrocity
       let(:person) { Examples::Person.new(age: 50) }
       let(:model) { person.model }
 
-      it 'returns a read-only object' do
+      it 'responds to a reader' do
         expect(model.respond_to?(:age)).to be true
+      end
+
+      it 'does not respond to a writer' do
         expect(model.respond_to?(:age=)).to be false
+      end
+
+      it 'responds to predicate'do
+        expect(model.respond_to?(:age?)).to be true
       end
 
       it 'has correct value for attribute' do
         expect(model.age).to eq(50)
+      end
+
+      it 'has correct value for predicate' do
+        expect(model.age?).to be true
       end
 
       it 'includes model attributes' do
