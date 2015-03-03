@@ -9,10 +9,9 @@ module Attrocity
         expect(coercer.coerce('1')).to eq(1)
       end
 
-      # TODO: Should we really return nil for unsupported coercions?
-      it 'returns nil for unsupported coercions' do
+      it 'raises coercion error for unsupported coercions' do
         ['', nil].each do |val|
-          expect(coercer.coerce(val)).to be_nil
+          expect { coercer.coerce(val) }.to raise_error(Attrocity::CoercionError)
         end
       end
     end
