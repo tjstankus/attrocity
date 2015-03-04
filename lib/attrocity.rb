@@ -1,3 +1,6 @@
+module Attrocity
+  CoercionError = Class.new(StandardError)
+end
 require 'attrocity/version'
 require 'attrocity/attribute'
 require 'attrocity/attribute_methods_builder'
