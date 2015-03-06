@@ -4,7 +4,7 @@ require 'attrocity'
 module Attrocity
   RSpec.describe "Mapping" do
 
-    describe 'with symbol mapper' do
+    describe 'with default key mapper' do
       let(:data) { { 'listingid' => '1234' } }
       let(:listing) { Examples::Listing.new(data) }
 

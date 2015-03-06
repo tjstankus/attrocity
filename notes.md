@@ -24,8 +24,7 @@ object and a hash of data and it returns a value. It might return nil.
 Potentially, it could accept a default and fallback to that value, but I'm not
 sure that's within the responsibility of this object.
 
-Coercer: Simply assures the data its passed comes back as the correct type. Even
-though coercers probably aren't the right place for
+Coercer: Simply assures the data its passed comes back as the correct type.
 
 Who knows how to assemble/initialize a Mapper? I don't think Attribute needs to
 be the keeper of that knowledge. If Mapper's public interface is to receive the
@@ -39,10 +38,17 @@ default value behavior, I would choose the mapper.
 Do we map a coerced value OR do we coerce a mapped value? I think we coerce a
 mapped value. Right. Map, then send the result to the coercer.
 
+Do we map/coerce before handing the value to an InstanceAttribute?
+
+I like the idea of working inside-out here, from the innermost objects outward,
+because I think we have the right objects, they're just combined in funky ways.
+At this point, it feels right to start with mapper -> coercer -> ?.
+(ClassAttribute probably doesn't need any of those data-related collaborators.)
+
 ### Coercers
 
 I'm concerned the return value/behavior of coercers is inconsistent. I'm not
-sure what to do about it yet, though, other than document it.
+sure what to do about it yet, though, other than note it.
 
 Coercers::Integer - It's possible in a couple different ways to raise an error,
 so we normalize the different kinds of errors into a single
@@ -58,13 +64,9 @@ Coercers::Boolean - At this point, this is a custom implementation, specific to
 RentPath, but I'm thinking that it should default to the Ruby notion of
 truthiness. Yes, the default boolean coercer will adhere to the Ruby notion of
 truthiness. But we need to then inject a coercer that's not part of the built-in
-coercers, which we should probably do in RentalsModels.
+coercers, which we should probably do in RentalsModels. This work is done.
 
 ### ClassAttribute
-
-These are the templates from which instance attributes are created. When an
-instance attribute is created, however, we have data. How does data inform the
-diffs?
 
 - [ ] Start with default_value as a simple Ruby attribute (data).
 

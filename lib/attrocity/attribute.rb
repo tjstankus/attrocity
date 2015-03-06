@@ -1,5 +1,3 @@
-require_relative 'key_mapper'
-
 module Attrocity
   class Attribute
 

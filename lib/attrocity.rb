@@ -6,6 +6,9 @@ require 'attrocity/attribute'
 require 'attrocity/attribute_methods_builder'
 require 'attrocity/attribute_set'
 require 'attrocity/attributes_hash'
+require 'attrocity/attributes/class_attribute'
+require 'attrocity/attributes/instance_attribute'
+require 'attrocity/mappers/key_mapper'
 require 'attrocity/model'
 require 'attrocity/model_attribute'
 require 'attrocity/model_attribute_set'
@@ -17,6 +20,7 @@ require 'attrocity/coercers/integer'
 require 'attrocity/coercers/string'
 
 module Attrocity
+
 
   def self.model
     ModelBuilder.new
