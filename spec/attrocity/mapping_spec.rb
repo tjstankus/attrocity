@@ -33,6 +33,7 @@ module Attrocity
         object = Examples::WithProcMapper.new({'properties' => { 'age' => 27 } })
         expect(object.age).to eq(27)
       end
+
     end
 
     describe 'without explicit mapper' do

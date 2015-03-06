@@ -1,6 +1,24 @@
 Notes
 =====
 
+Handling missing data
+---------------------
+
+I think these are the rules...
+
+It should probably be nil. Perhaps if the mapper returns nil we don't even
+bother coercing it. There's a concept here and it's around extracting data.
+Every attribute has a coercer, by rule of API, and every attribute has a mapper,
+either explicitly declared or the default KeyMapper. When an attribute is
+missing, in other words when the mapper cannot extract data (returns nil), the
+default value is applied. The "default" default value is nil. When the default
+value is applied, no coercion is performed.
+
+ValueExtractor (or a better named class) takes a mapper, a coercer, and a
+default value, which defaults to nil.
+
+- [ ] Write up some spec/examples and also for the README
+
 Attributes
 ----------
 
