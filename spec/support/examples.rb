@@ -3,9 +3,15 @@ require 'attrocity'
 module Attrocity
   module Examples
 
+    class Preferences
+      include Attrocity.model
+      attribute :publish_email, coercer: :boolean #, default: false
+    end
+
     class Person
       include Attrocity.model
       attribute :age, coercer: :integer
+      model_attribute :preferences, model: Examples::Preferences
     end
 
     class Address

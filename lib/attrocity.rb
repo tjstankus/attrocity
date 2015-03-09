@@ -1,3 +1,6 @@
+module Attrocity
+  CoercionError = Class.new(StandardError)
+end
 require 'attrocity/version'
 require 'attrocity/attribute'
 require 'attrocity/attribute_methods_builder'
@@ -6,14 +9,19 @@ require 'attrocity/attributes_hash'
 require 'attrocity/model'
 require 'attrocity/model_attribute'
 require 'attrocity/model_attribute_set'
+require 'attrocity/value_extractor'
+require 'attrocity/attributes/class_attribute'
+require 'attrocity/attributes/instance_attribute'
 require 'attrocity/builders/object_extension_builder'
 require 'attrocity/builders/model_builder'
 require 'attrocity/coercer_registry'
 require 'attrocity/coercers/boolean'
 require 'attrocity/coercers/integer'
 require 'attrocity/coercers/string'
+require 'attrocity/mappers/key_mapper'
 
 module Attrocity
+
 
   def self.model
     ModelBuilder.new

@@ -4,7 +4,7 @@ require 'attrocity'
 module Attrocity
   RSpec.describe "Mapping" do
 
-    describe 'with symbol mapper' do
+    describe 'with default key mapper' do
       let(:data) { { 'listingid' => '1234' } }
       let(:listing) { Examples::Listing.new(data) }
 
@@ -33,6 +33,7 @@ module Attrocity
         object = Examples::WithProcMapper.new({'properties' => { 'age' => 27 } })
         expect(object.age).to eq(27)
       end
+
     end
 
     describe 'without explicit mapper' do

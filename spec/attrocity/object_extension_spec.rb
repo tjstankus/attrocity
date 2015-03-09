@@ -26,6 +26,7 @@ module Attrocity
       end
 
       it 'returns correct attribute value' do
+        pending
         listing.extend(Examples::Spotlight)
         expect(listing.spotlight).to be false
       end

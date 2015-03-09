@@ -1,5 +1,3 @@
-require_relative 'key_mapper'
-
 module Attrocity
   class Attribute
 
@@ -37,7 +35,7 @@ module Attrocity
       if mapping.respond_to?(:call)
         mapping
       else
-        KeyMapper.new(mapping)
+        self.class.default_mapper(mapping)
       end
     end
   end

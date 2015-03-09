@@ -3,6 +3,8 @@ module Attrocity
     class Integer
       def coerce(value)
         Integer(value)
+      rescue TypeError, ArgumentError
+        raise Attrocity::CoercionError
       end
     end
   end

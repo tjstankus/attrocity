@@ -1,10 +1,96 @@
 Notes
 =====
 
-ClassAttribute. Does not have a value. Has a default value.
+Handling missing data
+---------------------
 
-InstanceAttribute. Has a value. Only concerned with default value on
-instantiation.
+I think these are the rules...
+
+It should probably be nil. Perhaps if the mapper returns nil we don't even
+bother coercing it. There's a concept here and it's around extracting data.
+Every attribute has a coercer, by rule of API, and every attribute has a mapper,
+either explicitly declared or the default KeyMapper. When an attribute is
+missing, in other words when the mapper cannot extract data (returns nil), the
+default value is applied. The "default" default value is nil. When the default
+value is applied, no coercion is performed.
+
+ValueExtractor (or a better named class) takes a mapper, a coercer, and a
+default value, which defaults to nil.
+
+- [ ] Write up some spec/examples and also for the README
+
+Attributes
+----------
+
+Should class attributes and instance attributes be different things? Should
+class attributes support values? How do default values apply to class
+attributes? Is there any behavior for value or is it just data?
+
+InstanceAttribute. Has a value. Probably immutable.
+
+The deep cloning stuff feels wrong. It's basically a factory method and should
+probably be explicitly treated as such.
+
+Responsibilities are a little spread thin, esp. for Attribute.
+
+### Collaborators
+
+In which collaborator would it most make sense to add in default value behavior?
+
+Mapper: Simply retrieves the data from raw attributes data. `call` it with an
+object and a hash of data and it returns a value. It might return nil.
+Potentially, it could accept a default and fallback to that value, but I'm not
+sure that's within the responsibility of this object.
+
+Coercer: Simply assures the data its passed comes back as the correct type.
+
+Who knows how to assemble/initialize a Mapper? I don't think Attribute needs to
+be the keeper of that knowledge. If Mapper's public interface is to receive the
+call message with obj, attributes_data, and an optional default value, then a
+fully realized mapper should be passed into an Attribute, moving that work
+outside of Attribute and simplifying it.
+
+Of the 2 objects, coercer and mapper, if I had to choose between the two to shim
+default value behavior, I would choose the mapper.
+
+Do we map a coerced value OR do we coerce a mapped value? I think we coerce a
+mapped value. Right. Map, then send the result to the coercer.
+
+Do we map/coerce before handing the value to an InstanceAttribute?
+
+I like the idea of working inside-out here, from the innermost objects outward,
+because I think we have the right objects, they're just combined in funky ways.
+At this point, it feels right to start with mapper -> coercer -> ?.
+(ClassAttribute probably doesn't need any of those data-related collaborators.)
+
+### Coercers
+
+I'm concerned the return value/behavior of coercers is inconsistent. I'm not
+sure what to do about it yet, though, other than note it.
+
+Coercers::Integer - It's possible in a couple different ways to raise an error,
+so we normalize the different kinds of errors into a single
+Attrocity::CoercionError. We are simply using Kernel.Integer for this coercer,
+which is the source for raising (at least) a couple different errors: TypeError,
+ArgumentError.
+
+Coercers::String: - It doesn't seem possible for this coercer to raise an error
+in its current implementation. It uses Kernel.String, which in turn uses to_s,
+which is implemented in Object.
+
+Coercers::Boolean - At this point, this is a custom implementation, specific to
+RentPath, but I'm thinking that it should default to the Ruby notion of
+truthiness. Yes, the default boolean coercer will adhere to the Ruby notion of
+truthiness. But we need to then inject a coercer that's not part of the built-in
+coercers, which we should probably do in RentalsModels. This work is done.
+
+### ClassAttribute
+
+- [ ] Start with default_value as a simple Ruby attribute (data).
+
+### InstanceAttribute
+
+Start here and work backwards towards ClassAttribute.
 
 ---
 
