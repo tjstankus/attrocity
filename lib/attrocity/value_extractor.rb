@@ -1,6 +1,6 @@
 module Attrocity
   class ValueExtractor
-    attr_reader :mapper, :coercer, :data, :default_value
+    attr_reader :data, :mapper, :coercer, :default_value
 
     def initialize(data, mapper, coercer, default_value=nil)
       @data, @mapper, @coercer, @default_value = data, mapper, coercer, default_value
@@ -8,7 +8,7 @@ module Attrocity
 
     def value
       mapped_value = map
-      if mapped_value == default_value
+      if skip_coercion?(mapped_value)
         mapped_value
       else
         coerce(mapped_value)
@@ -16,6 +16,10 @@ module Attrocity
     end
 
     private
+
+    def skip_coercion?(value)
+      value.nil? || value == default_value
+    end
 
     def map
       mapper.call(nil, data) rescue default_value
