@@ -2,7 +2,7 @@ module Attrocity
   class ValueExtractor
     attr_reader :data, :mapper, :coercer, :default_value
 
-    def initialize(data, mapper, coercer, default_value=nil)
+    def initialize(data, mapper:, coercer:, default_value:)
       @data, @mapper, @coercer, @default_value = data, mapper, coercer, default_value
     end
 

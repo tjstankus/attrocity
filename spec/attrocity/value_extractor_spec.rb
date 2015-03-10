@@ -6,7 +6,8 @@ module Attrocity
     let(:coercer) { Coercers::String.new }
     let(:default_value) { nil }
     subject(:extractor) {
-      ValueExtractor.new(data, mapper, coercer, default_value)
+      ValueExtractor.new(
+        data, mapper: mapper, coercer: coercer, default_value: default_value)
     }
 
     describe '#value' do
