@@ -1,6 +1,57 @@
 Notes
 =====
 
+Current refactorings
+--------------------
+
+### Attribute
+
+- Slim down Attribute
+
+- Come up with a better name for Attribute?
+
+- Must have: name, coercer
+
+- Optional: default, from
+
+- Default value is handed to the mapper. Is not the domain of Attribute, I don't
+  think.
+
+- [ ] Definitely does not have a value.
+
+---
+
+What do we do with instance attributes when we initialize a new instance of a
+model?
+
+- Make new instances of InstanceAttribute based on class attribute and value
+  extraction. Add those instances to the InstanceAttributeSet.
+
+- Define methods on the object for each of the instance attributes.
+
+What should we do with model attributes when we initialize a new instance of a
+model?
+
+- Instantiate an instance of the model referred to by model_attribute.
+
+- Create method(s) for the model attribute.
+
+
+What about object extension? It applies only to modules.
+
+- [ ] Create instance attributes from module attributes, which are the same
+  thing as class attributes. So, class attributes are really just Attribute or
+  AttributeTemplate. They do not have a value. They have a default value.
+
+- [ ] It should probably be added to instance attribute set.
+
+---
+
+- [ ] Make attribute_set the InstanceAttributeSet?
+
+- [ ] Where does the behavior in setup_attributes belong?
+
+
 Handling missing data
 ---------------------
 
