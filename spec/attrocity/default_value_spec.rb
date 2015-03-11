@@ -15,7 +15,6 @@ module Attrocity
     end
 
     it 'overrides default value' do
-      pending
       example = Examples::DefaultValueExample.new(bool: false)
       expect(example.bool).to be false
     end

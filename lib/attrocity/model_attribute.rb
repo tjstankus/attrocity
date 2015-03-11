@@ -8,7 +8,7 @@ module Attrocity
     end
 
     def model(data)
-      model_class.new(data).model
+      model_class.new(AttributesHash.new(data)).model
     end
   end
 end

@@ -28,6 +28,7 @@ module Attrocity
 
     def define_predicate(attribute)
       object.define_singleton_method("#{attribute.name}?") do
+        # TODO: Would true & attribute.value work better here?
         !!(attribute.value)
       end
     end

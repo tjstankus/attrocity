@@ -12,6 +12,7 @@ require 'attrocity/model_attribute_set'
 require 'attrocity/value_extractor'
 require 'attrocity/attributes/class_attribute'
 require 'attrocity/attributes/instance_attribute'
+require 'attrocity/attributes/instance_attribute_set'
 require 'attrocity/builders/object_extension_builder'
 require 'attrocity/builders/model_builder'
 require 'attrocity/coercer_registry'
@@ -22,7 +23,6 @@ require 'attrocity/mappers/key_mapper'
 
 module Attrocity
 
-
   def self.model
     ModelBuilder.new
   end
@@ -32,10 +32,9 @@ module Attrocity
   end
 
   module ModuleMethods
-    def attribute(name,
-                  coercer:,
-                  from: Attribute.default_mapper(name),
-                  default: nil)
+    # TODO: Make a ClassAttribute, which is part of a ClassAttributeSet
+    def attribute(name, coercer:, default: nil,
+                  from: Attribute.default_mapper(name, default))
       coercer = CoercerRegistry.instance_for(coercer)
       options = {}
       if default

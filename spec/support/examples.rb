@@ -5,7 +5,7 @@ module Attrocity
 
     class Preferences
       include Attrocity.model
-      attribute :publish_email, coercer: :boolean #, default: false
+      attribute :publish_email, coercer: :boolean, default: false
     end
 
     class Person

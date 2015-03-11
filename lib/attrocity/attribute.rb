@@ -12,8 +12,8 @@ module Attrocity
       self.value = default unless default.nil?
     end
 
-    def self.default_mapper(key)
-      KeyMapper.new(key)
+    def self.default_mapper(key, default_value=nil)
+      KeyMapper.new(key, default_value)
     end
 
     def mapper_value(obj, attributes_data)
