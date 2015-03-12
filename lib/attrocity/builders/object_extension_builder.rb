@@ -10,7 +10,6 @@ module Attrocity
       def extend_object(obj)
         methods_builder = AttributeMethodsBuilder.new(obj)
         self.attribute_set.attributes.each do |mod_attr|
-          default = mod_attr.default
           value = ValueExtractor.new(
             AttributesHash.new(obj.raw_data),
             mapper: mod_attr.mapper,

@@ -1,7 +1,6 @@
 require_relative 'attributes_hash'
 
 module Attrocity
-
   class AttributeSet
     attr_reader :attributes
 
@@ -44,6 +43,12 @@ module Attrocity
 
     def attribute_for_name(name)
       attributes.detect { |att| att.name == name }
+    end
+
+    def to_instance_attributes(data)
+      InstanceAttributeSet.new.tap do |set|
+        self.attributes.each { |attr| set << attr.to_instance_attribute(data) }
+      end
     end
 
   end

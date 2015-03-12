@@ -11,9 +11,9 @@ module Attrocity
 
     module Initializer
       def initialize(data={})
-        @raw_data = data
-        @attribute_set = Attrocity::InstanceAttributeSet.new
-        init_instance_attributes
+        @raw_data = AttributesHash.new(data)
+        @attribute_set = self.class.attribute_set.to_instance_attributes(@raw_data)
+        define_methods
         setup_model_attributes
       end
     end
@@ -23,29 +23,24 @@ module Attrocity
         Model.new(@attribute_set.to_h.merge(model_attributes_hash))
       end
 
+      # TODO: InstanceAttribute => ValueAttribute
+      # AttributeMethodsBuilder do define methods for attribute set or individual attributes
+
+      private
+
+      def define_methods
+        methods_builder = AttributeMethodsBuilder.new(self)
+        attribute_set.attributes.each do |attr|
+          methods_builder.define_methods(attr)
+        end
+      end
+
       def setup_model_attributes
         model_attributes.each do |model_attr|
           name = model_attr.name
           define_singleton_method(name) {
             instance_eval("@#{name} ||= model_attr.model(raw_data)")
           }
-        end
-      end
-
-      private
-
-      def init_instance_attributes
-        self.class.attribute_set.attributes.each do |class_attr|
-          default = class_attr.default
-          value = ValueExtractor.new(
-            AttributesHash.new(raw_data),
-            mapper: class_attr.mapper,
-            coercer: class_attr.coercer).value
-          @attribute_set << InstanceAttribute.new(class_attr.name, value)
-        end
-        methods_builder = AttributeMethodsBuilder.new(self)
-        @attribute_set.attributes.each do |attr|
-          methods_builder.define_methods(attr)
         end
       end
 
