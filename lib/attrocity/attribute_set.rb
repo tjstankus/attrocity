@@ -8,10 +8,6 @@ module Attrocity
       @attributes = attributes
     end
 
-    def deep_clone
-      self.class.new(attributes.collect(&:deep_clone))
-    end
-
     def add(attribute)
       attributes << attribute
     end

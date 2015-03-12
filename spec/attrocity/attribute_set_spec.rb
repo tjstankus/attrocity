@@ -16,23 +16,6 @@ module Attrocity
       end
     end
 
-    describe '#deep_clone' do
-      before do
-        @attrs = [Examples.integer_attribute, Examples.string_attribute]
-        @attr_set = AttributeSet.new(@attrs)
-        @attr_set_clone = @attr_set.deep_clone
-      end
-
-      it 'creates a new instance' do
-        expect(@attr_set_clone).not_to equal(@attr_set)
-      end
-
-      it 'deep clones attributes' do
-        expect(@attr_set_clone.attributes.first).not_to equal(
-          @attr_set.attributes.first)
-      end
-    end
-
     describe '#set_value_for' do
       it 'sets the value of the attribute with the given name'
     end

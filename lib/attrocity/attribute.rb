@@ -20,11 +20,6 @@ module Attrocity
       mapper.call(obj, attributes_data)
     end
 
-    # TODO: Somehow keep this in sync w/ initialize? Perhaps alias?
-    def deep_clone
-      self.class.new(name, coercer, mapper, options)
-    end
-
     def value=(value)
       @value = coercer.coerce(value)
     end
