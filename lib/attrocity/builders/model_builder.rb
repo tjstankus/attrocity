@@ -12,27 +12,25 @@ module Attrocity
     module Initializer
       def initialize(data={})
         @raw_data = AttributesHash.new(data)
-        @attribute_set = self.class.attribute_set.to_instance_attributes(@raw_data)
-        define_methods
+        @attribute_set = init_value_attributes
+        build_attributes_methods
         setup_model_attributes
       end
     end
 
     module InstanceMethods
       def model
-        Model.new(@attribute_set.to_h.merge(model_attributes_hash))
+        Model.new(attribute_set.to_h.merge(model_attributes_hash))
       end
-
-      # TODO: InstanceAttribute => ValueAttribute
-      # AttributeMethodsBuilder do define methods for attribute set or individual attributes
 
       private
 
-      def define_methods
-        methods_builder = AttributeMethodsBuilder.new(self)
-        attribute_set.attributes.each do |attr|
-          methods_builder.define_methods(attr)
-        end
+      def init_value_attributes
+        self.class.attribute_set.to_value_attribute_set(raw_data)
+      end
+
+      def build_attributes_methods
+        AttributeMethodsBuilder.for_attribute_set(self, attribute_set).build
       end
 
       def setup_model_attributes

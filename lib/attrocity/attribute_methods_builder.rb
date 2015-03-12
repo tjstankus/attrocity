@@ -1,10 +1,26 @@
 module Attrocity
   class AttributeMethodsBuilder
 
-    attr_reader :object
+    attr_reader :object, :attributes
 
-    def initialize(object)
-      @object = object
+    def initialize(object, attributes=[])
+      @object, @attributes = object, attributes
+    end
+
+    def self.for_attribute(obj, attribute)
+      self.new(obj, Array(attribute))
+    end
+
+    def self.for_attribute_set(obj, attribute_set)
+      self.new(obj, attribute_set.attributes)
+    end
+
+    def build
+      attributes.each do |attr|
+        define_reader(attr)
+        define_writer(attr)
+        define_predicate(attr)
+      end
     end
 
     def define_methods(attribute)

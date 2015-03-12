@@ -29,7 +29,7 @@ module Attrocity
       @value = coercer.coerce(value)
     end
 
-    def to_instance_attribute(data)
+    def to_value_attribute(data)
       val = ValueExtractor.new(data, mapper: mapper, coercer: coercer).value
       ValueAttribute.new(name, val)
     end
