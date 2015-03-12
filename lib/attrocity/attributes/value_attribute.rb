@@ -1,5 +1,5 @@
 module Attrocity
-  class InstanceAttribute
+  class ValueAttribute
     attr_reader :name, :value
 
     def initialize(name, value)

@@ -31,7 +31,7 @@ module Attrocity
 
     def to_instance_attribute(data)
       val = ValueExtractor.new(data, mapper: mapper, coercer: coercer).value
-      InstanceAttribute.new(name, val)
+      ValueAttribute.new(name, val)
     end
 
 

@@ -1,8 +1,8 @@
 module Attrocity
   RSpec.describe InstanceAttributeSet do
     let(:attrs) {
-      [InstanceAttribute.new(:foo, 1),
-       InstanceAttribute.new(:bar, 2) ]
+      [ValueAttribute.new(:foo, 1),
+       ValueAttribute.new(:bar, 2) ]
     }
     subject(:attribute_set) { described_class.new }
 

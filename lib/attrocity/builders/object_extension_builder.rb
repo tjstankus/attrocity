@@ -14,7 +14,7 @@ module Attrocity
             AttributesHash.new(obj.raw_data),
             mapper: mod_attr.mapper,
             coercer: mod_attr.coercer).value
-          attr = InstanceAttribute.new(mod_attr.name, value)
+          attr = ValueAttribute.new(mod_attr.name, value)
           obj.attribute_set << attr
           methods_builder.define_methods(attr)
         end
