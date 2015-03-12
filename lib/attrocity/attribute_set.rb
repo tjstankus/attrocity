@@ -46,7 +46,7 @@ module Attrocity
     end
 
     def to_instance_attributes(data)
-      InstanceAttributeSet.new.tap do |set|
+      ValueAttributeSet.new.tap do |set|
         self.attributes.each { |attr| set << attr.to_instance_attribute(data) }
       end
     end

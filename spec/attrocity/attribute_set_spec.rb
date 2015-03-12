@@ -41,13 +41,6 @@ module Attrocity
       it 'returns a hash of attribute names and values'
     end
 
-    # TODO: This probably becomes unnecessary once we have InstanceAttributeSet
-    # and ClassAttributeSet
-    describe '#unmapped_attributes' do
-      it 'returns a hash of unmapped raw attribute names to coerced values'
-      it 'omits unnecessary data'
-    end
-
     describe '#<<' do
       subject { described_class.new }
 

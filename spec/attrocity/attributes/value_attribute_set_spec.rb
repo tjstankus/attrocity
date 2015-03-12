@@ -1,5 +1,5 @@
 module Attrocity
-  RSpec.describe InstanceAttributeSet do
+  RSpec.describe ValueAttributeSet do
     let(:attrs) {
       [ValueAttribute.new(:foo, 1),
        ValueAttribute.new(:bar, 2) ]
