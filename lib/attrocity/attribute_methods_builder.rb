@@ -9,11 +9,13 @@ module Attrocity
     end
 
     def define_methods
-      attributes.each do |attr|
-        define_reader(attr)
-        define_writer(attr)
-        define_predicate(attr)
-      end
+      attributes.each { |attr| define_methods_for(attr) }
+    end
+
+    def define_methods_for(attr)
+      define_reader(attr)
+      define_writer(attr)
+      define_predicate(attr)
     end
 
     def define_reader(attribute)

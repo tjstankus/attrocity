@@ -12,23 +12,16 @@ module Attrocity
     module Initializer
       def initialize(data={})
         @raw_data = data
-        @instance_attributes = Attrocity::InstanceAttributeSet.new
-        @attribute_set = self.class.attribute_set.deep_clone
+        @attribute_set = Attrocity::InstanceAttributeSet.new
         init_instance_attributes
-        AttributeMethodsBuilder.new(self, @instance_attributes.attributes).define_methods
-        # setup_attributes
+        AttributeMethodsBuilder.new(self, @attribute_set.attributes).define_methods
         setup_model_attributes
       end
     end
 
     module InstanceMethods
       def model
-        Model.new(@instance_attributes.to_h.merge(model_attributes_hash))
-      end
-
-      def setup_attributes
-        attribute_set.set_values(self, raw_data)
-        attribute_set.define_methods(self)
+        Model.new(@attribute_set.to_h.merge(model_attributes_hash))
       end
 
       def setup_model_attributes
@@ -43,14 +36,13 @@ module Attrocity
       private
 
       def init_instance_attributes
-        class_attribute_set = attribute_set
-        class_attribute_set.attributes.each do |class_attr|
+        self.class.attribute_set.attributes.each do |class_attr|
           default = class_attr.default
           value = ValueExtractor.new(
             AttributesHash.new(raw_data),
             mapper: class_attr.mapper,
             coercer: class_attr.coercer).value
-          @instance_attributes << InstanceAttribute.new(class_attr.name, value)
+          @attribute_set << InstanceAttribute.new(class_attr.name, value)
         end
       end
 

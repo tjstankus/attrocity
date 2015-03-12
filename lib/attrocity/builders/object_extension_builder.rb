@@ -8,11 +8,17 @@ module Attrocity
 
     module ModuleHooks
       def extend_object(obj)
+        methods_builder = AttributeMethodsBuilder.new(obj, [])
         self.attribute_set.attributes.each do |mod_attr|
-          obj.attribute_set << mod_attr
+          default = mod_attr.default
+          value = ValueExtractor.new(
+            AttributesHash.new(obj.raw_data),
+            mapper: mod_attr.mapper,
+            coercer: mod_attr.coercer).value
+          attr = InstanceAttribute.new(mod_attr.name, value)
+          obj.attribute_set << attr
+          methods_builder.define_methods_for(attr)
         end
-        # TODO: https://www.pivotaltracker.com/story/show/89015658
-        obj.setup_attributes
       end
     end
 
