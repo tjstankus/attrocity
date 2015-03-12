@@ -5,7 +5,7 @@ module Attrocity
     let(:object) { Object.new }
     let(:attr_name) { :a_string }
     let(:attribute) { Examples.string_attribute(attr_name) }
-    subject { AttributeMethodsBuilder.new(object, Array(attribute)) }
+    subject { AttributeMethodsBuilder.new(object) }
 
     describe '#define_reader' do
       it 'defines a reader method for the attribute' do

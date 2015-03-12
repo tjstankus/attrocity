@@ -8,7 +8,7 @@ module Attrocity
 
     module ModuleHooks
       def extend_object(obj)
-        methods_builder = AttributeMethodsBuilder.new(obj, [])
+        methods_builder = AttributeMethodsBuilder.new(obj)
         self.attribute_set.attributes.each do |mod_attr|
           default = mod_attr.default
           value = ValueExtractor.new(
@@ -17,7 +17,7 @@ module Attrocity
             coercer: mod_attr.coercer).value
           attr = InstanceAttribute.new(mod_attr.name, value)
           obj.attribute_set << attr
-          methods_builder.define_methods_for(attr)
+          methods_builder.define_methods(attr)
         end
       end
     end

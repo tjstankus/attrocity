@@ -14,7 +14,6 @@ module Attrocity
         @raw_data = data
         @attribute_set = Attrocity::InstanceAttributeSet.new
         init_instance_attributes
-        AttributeMethodsBuilder.new(self, @attribute_set.attributes).define_methods
         setup_model_attributes
       end
     end
@@ -43,6 +42,10 @@ module Attrocity
             mapper: class_attr.mapper,
             coercer: class_attr.coercer).value
           @attribute_set << InstanceAttribute.new(class_attr.name, value)
+        end
+        methods_builder = AttributeMethodsBuilder.new(self)
+        @attribute_set.attributes.each do |attr|
+          methods_builder.define_methods(attr)
         end
       end
 
