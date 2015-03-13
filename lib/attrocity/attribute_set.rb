@@ -23,20 +23,6 @@ module Attrocity
       end
     end
 
-    def set_values(obj, data)
-      attributes_data = AttributesHash.new(data)
-      attributes.each do |attr|
-        # TODO: This is wrong. This is doing the work of other objects here.
-        if attr.value.nil?
-          attr.value = attr.mapper_value(obj, attributes_data)
-        end
-      end
-    end
-
-    def set_value_for(attr_name, value)
-      attribute_for_name(attr_name).value = value
-    end
-
     def attribute_for_name(name)
       attributes.detect { |att| att.name == name }
     end

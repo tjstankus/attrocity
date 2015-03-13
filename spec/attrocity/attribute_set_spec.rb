@@ -6,11 +6,13 @@ require 'attrocity/coercers/integer'
 module Attrocity
   RSpec.describe AttributeSet do
 
+    # TODO: Remove?
     describe '#[:name]' do
       let(:attribute) { Examples.string_attribute }
       let(:attribute_set) { AttributeSet.new(Array(attribute)) }
 
       it 'returns the value of the attribute with the given name' do
+        pending
         attribute_set.set_value_for(attribute.name, 'bar')
         expect(attribute_set[:a_string]).to eq('bar')
       end
@@ -34,23 +36,6 @@ module Attrocity
       end
 
       it 'raises error when non-attribute is added'
-    end
-
-    describe '#set_values' do
-      let(:mapper) { Attribute.default_mapper(:age) }
-      let(:attr) { Attribute.new(:age, Coercers::Integer.new, mapper) }
-      let(:attr_set) { AttributeSet.new([attr]) }
-      let(:object) { double('object') }
-
-      it 'sets attribute values' do
-        attr_set.set_values(object, { age: 10 })
-        expect(attr.value).to eq(10)
-      end
-
-      it 'sets attribute values via indifferent hash keys' do
-        attr_set.set_values(object, { 'age' => 10 })
-        expect(attr.value).to eq(10)
-      end
     end
 
   end

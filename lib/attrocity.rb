@@ -3,7 +3,7 @@ module Attrocity
 end
 require 'attrocity/version'
 require 'attrocity/attribute'
-require 'attrocity/attribute_methods_builder'
+require 'attrocity/value_attribute_methods_builder'
 require 'attrocity/attribute_set'
 require 'attrocity/attributes_hash'
 require 'attrocity/model'

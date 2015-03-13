@@ -1,9 +1,9 @@
 module Attrocity
-  class AttributeMethodsBuilder
+  class ValueAttributeMethodsBuilder
 
     attr_reader :object, :attributes
 
-    def initialize(object, attributes=[])
+    def initialize(object, attributes)
       @object, @attributes = object, attributes
     end
 

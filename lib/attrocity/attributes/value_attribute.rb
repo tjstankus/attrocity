@@ -1,6 +1,7 @@
 module Attrocity
   class ValueAttribute
-    attr_reader :name, :value
+    attr_reader :name
+    attr_accessor :value
 
     def initialize(name, value)
       @name, @value = name, value

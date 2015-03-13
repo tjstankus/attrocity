@@ -3,7 +3,7 @@ Notes
 
 ### Attribute improvements
 
-- [ ] Make default an arg with default of nil. Remove options.
+- [x] Make default an arg with default of nil. Remove options.
 
 - [ ] Remove value
 

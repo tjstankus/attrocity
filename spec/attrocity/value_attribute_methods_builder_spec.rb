@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 module Attrocity
-  describe AttributeMethodsBuilder do
+  describe ValueAttributeMethodsBuilder do
     let(:object) { Object.new }
     let(:attr_name) { :a_string }
-    let(:attribute) { Examples.string_attribute(attr_name) }
-    subject { AttributeMethodsBuilder.new(object) }
+    let(:attribute) { ValueAttribute.new(attr_name, 'hello') }
+    subject { described_class.new(object, Array(attribute)) }
 
     describe '#define_reader' do
       it 'defines a reader method for the attribute' do
@@ -16,8 +16,7 @@ module Attrocity
 
       it 'returns the attribute value from the defined reader method' do
         subject.define_reader(attribute)
-        attribute.value = 'foo'
-        expect(object.send(attr_name)).to eq('foo')
+        expect(object.send(attr_name)).to eq('hello')
       end
     end
 

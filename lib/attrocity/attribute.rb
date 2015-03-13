@@ -1,7 +1,7 @@
 module Attrocity
   class Attribute
 
-    attr_reader :name, :coercer, :mapper, :options, :value, :default
+    attr_reader :name, :coercer, :mapper, :default
 
     def initialize(name, coercer, mapping, default=nil)
       @name = name
@@ -16,10 +16,6 @@ module Attrocity
 
     def mapper_value(obj, attributes_data)
       mapper.call(obj, attributes_data)
-    end
-
-    def value=(value)
-      @value = coercer.coerce(value)
     end
 
     def to_value_attribute(data)
