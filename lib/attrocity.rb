@@ -32,15 +32,10 @@ module Attrocity
   end
 
   module ModuleMethods
-    # TODO: Make a ClassAttribute, which is part of a ClassAttributeSet
     def attribute(name, coercer:, default: nil,
                   from: Attribute.default_mapper(name, default))
       coercer = CoercerRegistry.instance_for(coercer)
-      options = {}
-      if default
-        options[:default] = default
-      end
-      attribute_set << Attribute.new(name, coercer, from, options)
+      attribute_set << Attribute.new(name, coercer, from, default)
     end
 
     def model_attribute(name, model:)

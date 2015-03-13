@@ -3,13 +3,11 @@ module Attrocity
 
     attr_reader :name, :coercer, :mapper, :options, :value, :default
 
-    def initialize(name, coercer, mapping, options={})
+    def initialize(name, coercer, mapping, default=nil)
       @name = name
       @coercer = coercer
       @mapper = init_mapper(mapping)
-      @options = options
-      @default = options.fetch(:default, nil)
-      self.value = default unless default.nil?
+      @default = default
     end
 
     def self.default_mapper(key, default_value=nil)
@@ -28,7 +26,6 @@ module Attrocity
       val = ValueExtractor.new(data, mapper: mapper, coercer: coercer).value
       ValueAttribute.new(name, val)
     end
-
 
     private
 
