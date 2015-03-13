@@ -17,9 +17,7 @@ module Attrocity
 
     def build
       attributes.each do |attr|
-        define_reader(attr)
-        define_writer(attr)
-        define_predicate(attr)
+        define_methods(attr)
       end
     end
 
