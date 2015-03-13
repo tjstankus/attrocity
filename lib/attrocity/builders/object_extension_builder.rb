@@ -8,16 +8,9 @@ module Attrocity
 
     module ModuleHooks
       def extend_object(obj)
-        methods_builder = AttributeMethodsBuilder.new(obj)
-        self.attribute_set.attributes.each do |mod_attr|
-          value = ValueExtractor.new(
-            AttributesHash.new(obj.raw_data),
-            mapper: mod_attr.mapper,
-            coercer: mod_attr.coercer).value
-          attr = ValueAttribute.new(mod_attr.name, value)
-          obj.attribute_set << attr
-          methods_builder.define_methods(attr)
-        end
+        value_attr_set = self.attribute_set.to_value_attribute_set(obj.raw_data)
+        obj.attribute_set << value_attr_set.attributes
+        AttributeMethodsBuilder.for_attribute_set(obj, value_attr_set).build
       end
     end
 

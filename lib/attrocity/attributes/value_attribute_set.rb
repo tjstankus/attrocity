@@ -7,8 +7,8 @@ module Attrocity
       @attributes = Array.new
     end
 
-    def add(attribute)
-      attributes << attribute
+    def add(attrs)
+      Array(attrs).each { |attr| attributes << attr }
     end
     alias_method :<<, :add
 
