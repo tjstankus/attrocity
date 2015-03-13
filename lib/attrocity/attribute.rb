@@ -14,10 +14,6 @@ module Attrocity
       KeyMapper.new(key, default_value)
     end
 
-    def mapper_value(obj, attributes_data)
-      mapper.call(obj, attributes_data)
-    end
-
     def to_value_attribute(data)
       val = ValueExtractor.new(data, mapper: mapper, coercer: coercer).value
       ValueAttribute.new(name, val)
