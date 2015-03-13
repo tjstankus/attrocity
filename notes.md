@@ -4,14 +4,14 @@ Notes
 Current refactorings
 --------------------
 
-- [ ] Attribute => AttributeFactory
+- [ ] Rename Attribute => AttributeFactory
 
-- [ ] ValueAttribute => Attribute
+- [ ] Rename ValueAttribute => Attribute
 
 - [ ] Generalize the various AttributeSets? What exactly are we using attribute
   sets for at this point?
 
-- [ ] Deal with pending specs
+- [ ] Process pending specs: delete unnecessary, make valid ones pass.
 
 Handling missing data
 ---------------------
