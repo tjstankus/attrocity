@@ -1,62 +1,16 @@
 Notes
 =====
 
-### Attribute improvements
-
-- [x] Make default an arg with default of nil. Remove options.
-
-- [ ] Remove value
-
 Current refactorings
 --------------------
 
-### Attribute
+- [ ] Attribute => AttributeFactory
 
-- Slim down Attribute
+- [ ] ValueAttribute => Attribute
 
-- Come up with a better name for Attribute?
+- [ ] Generalize the various AttributeSets?
 
-- Must have: name, coercer
-
-- Optional: default, from
-
-- Default value is handed to the mapper. Is not the domain of Attribute, I don't
-  think.
-
-- [ ] Definitely does not have a value.
-
----
-
-What do we do with instance attributes when we initialize a new instance of a
-model?
-
-- Make new instances of InstanceAttribute based on class attribute and value
-  extraction. Add those instances to the InstanceAttributeSet.
-
-- Define methods on the object for each of the instance attributes.
-
-What should we do with model attributes when we initialize a new instance of a
-model?
-
-- Instantiate an instance of the model referred to by model_attribute.
-
-- Create method(s) for the model attribute.
-
-
-What about object extension? It applies only to modules.
-
-- [ ] Create instance attributes from module attributes, which are the same
-  thing as class attributes. So, class attributes are really just Attribute or
-  AttributeTemplate. They do not have a value. They have a default value.
-
-- [ ] It should probably be added to instance attribute set.
-
----
-
-- [ ] Make attribute_set the InstanceAttributeSet?
-
-- [ ] Where does the behavior in setup_attributes belong?
-
+- [ ] Deal with pending specs
 
 Handling missing data
 ---------------------
@@ -78,17 +32,6 @@ default value, which defaults to nil.
 
 Attributes
 ----------
-
-Should class attributes and instance attributes be different things? Should
-class attributes support values? How do default values apply to class
-attributes? Is there any behavior for value or is it just data?
-
-InstanceAttribute. Has a value. Probably immutable.
-
-The deep cloning stuff feels wrong. It's basically a factory method and should
-probably be explicitly treated as such.
-
-Responsibilities are a little spread thin, esp. for Attribute.
 
 ### Collaborators
 
