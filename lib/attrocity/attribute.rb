@@ -6,11 +6,11 @@ module Attrocity
     def initialize(name, coercer, mapping, default=nil)
       @name = name
       @coercer = coercer
-      @mapper = init_mapper(mapping)
       @default = default
+      @mapper = init_mapper(mapping)
     end
 
-    def self.default_mapper(key, default_value=nil)
+    def self.default_mapper(key, default_value)
       KeyMapper.new(key, default_value)
     end
 
@@ -25,7 +25,7 @@ module Attrocity
       if mapping.respond_to?(:call)
         mapping
       else
-        self.class.default_mapper(mapping)
+        self.class.default_mapper(mapping, default)
       end
     end
   end
