@@ -8,7 +8,8 @@ Current refactorings
 
 - [ ] ValueAttribute => Attribute
 
-- [ ] Generalize the various AttributeSets?
+- [ ] Generalize the various AttributeSets? What exactly are we using attribute
+  sets for at this point?
 
 - [ ] Deal with pending specs
 
