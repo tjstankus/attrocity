@@ -10,10 +10,6 @@ module Attrocity
       @mapper = init_mapper(mapping)
     end
 
-    def self.default_mapper(key, default_value)
-      KeyMapper.new(key, default_value)
-    end
-
     def to_value_attribute(data)
       val = ValueExtractor.new(data, mapper: mapper, coercer: coercer).value
       ValueAttribute.new(name, val)
@@ -25,7 +21,7 @@ module Attrocity
       if mapping.respond_to?(:call)
         mapping
       else
-        self.class.default_mapper(mapping, default)
+        Attrocity.default_mapper(mapping, default)
       end
     end
   end

@@ -45,7 +45,7 @@ module Attrocity
     end
 
     def self.default_mapper(key)
-      Attrocity::Attribute.default_mapper(key)
+      Attrocity.default_mapper(key)
     end
 
   end

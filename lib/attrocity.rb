@@ -31,9 +31,13 @@ module Attrocity
     ObjectExtensionBuilder.new
   end
 
+  def self.default_mapper(name, default_value)
+    KeyMapper.new(name, default_value)
+  end
+
   module ModuleMethods
     def attribute(name, coercer:, default: nil,
-                  from: Attribute.default_mapper(name, default))
+                  from: Attrocity.default_mapper(name, default))
       coercer = CoercerRegistry.instance_for(coercer)
       attribute_set << Attribute.new(name, coercer, from, default)
     end
