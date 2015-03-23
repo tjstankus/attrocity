@@ -39,7 +39,7 @@ module Attrocity
     def attribute(name, coercer:, default: nil,
                   from: Attrocity.default_mapper(name, default))
       coercer = CoercerRegistry.instance_for(coercer)
-      attribute_set << Attribute.new(name, coercer, mapper(from, default), default)
+      attribute_set << Attribute.new(name, coercer, mapper(from, default))
     end
 
     def model_attribute(name, model:)

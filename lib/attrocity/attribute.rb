@@ -1,12 +1,11 @@
 module Attrocity
   class Attribute
 
-    attr_reader :name, :coercer, :mapper, :default
+    attr_reader :name, :coercer, :mapper
 
-    def initialize(name, coercer, mapping, default=nil)
+    def initialize(name, coercer, mapping)
       @name = name
       @coercer = coercer
-      @default = default
       @mapper = mapping
     end
 
