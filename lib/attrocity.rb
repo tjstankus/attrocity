@@ -39,12 +39,20 @@ module Attrocity
     def attribute(name, coercer:, default: nil,
                   from: Attrocity.default_mapper(name, default))
       coercer = CoercerRegistry.instance_for(coercer)
-      attribute_set << Attribute.new(name, coercer, from, default)
+      attribute_set << Attribute.new(name, coercer, mapper(from, default), default)
     end
 
     def model_attribute(name, model:)
       ModelAttribute.new(name, model).tap do |model_attr|
         model_attribute_set << model_attr
+      end
+    end
+
+    def mapper(mapping, default)
+      if mapping.respond_to?(:call)
+        mapping
+      else
+        Attrocity.default_mapper(mapping, default)
       end
     end
 
