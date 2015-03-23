@@ -1,5 +1,5 @@
 module Attrocity
-  class Attribute
+  class AttributeTemplate
 
     attr_reader :name, :coercer, :mapper
 
