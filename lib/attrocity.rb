@@ -4,7 +4,7 @@ end
 
 require 'attrocity/version'
 require 'attrocity/attributes/attribute_template'
-require 'attrocity/value_attribute_methods_builder'
+require 'attrocity/attribute_methods_builder'
 require 'attrocity/attributes/attribute_template_set'
 require 'attrocity/attributes/attributes_hash'
 require 'attrocity/model'
