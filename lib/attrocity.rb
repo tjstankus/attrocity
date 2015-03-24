@@ -57,7 +57,7 @@ module Attrocity
     end
 
     def attribute_set
-      @attribute_set ||= AttributeSet.new
+      @attribute_set ||= AttributeTemplateSet.new
     end
 
     def model_attribute_set

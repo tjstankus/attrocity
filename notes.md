@@ -4,7 +4,9 @@ Notes
 Current refactorings
 --------------------
 
-- [ ] Rename Attribute => AttributeFactory
+- [x] Rename Attribute => AttributeFactory
+
+- [ ] Rename AttributeSet to AttributeTemplateSet
 
 - [ ] Rename ValueAttribute => Attribute
 

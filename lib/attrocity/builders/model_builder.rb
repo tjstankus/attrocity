@@ -1,5 +1,6 @@
 module Attrocity
   class ModelBuilder < Module
+
     def included(klass)
       klass.extend(Attrocity::ModuleMethods)
       klass.class_eval do

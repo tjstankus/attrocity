@@ -4,12 +4,12 @@ require 'attrocity/attribute_set'
 require 'attrocity/coercers/integer'
 
 module Attrocity
-  RSpec.describe AttributeSet do
+  RSpec.describe AttributeTemplateSet do
 
     # TODO: Remove?
     describe '#[:name]' do
       let(:attribute) { Examples.string_attribute }
-      let(:attribute_set) { AttributeSet.new(Array(attribute)) }
+      let(:attribute_set) { AttributeTemplateSet.new(Array(attribute)) }
 
       it 'returns the value of the attribute with the given name' do
         pending

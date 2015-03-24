@@ -1,7 +1,7 @@
 require_relative 'attributes_hash'
 
 module Attrocity
-  class AttributeSet
+  class AttributeTemplateSet
     attr_reader :attributes
 
     def initialize(attributes=[])
