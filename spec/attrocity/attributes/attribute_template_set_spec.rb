@@ -1,6 +1,6 @@
 # TODO: Cleanup setup code in these specs
 require 'support/examples'
-require 'attrocity/attribute_set'
+require 'attrocity/attributes/attribute_template_set'
 require 'attrocity/coercers/integer'
 
 module Attrocity
