@@ -1,4 +1,4 @@
 module Attrocity
-  RSpec.describe ValueAttribute do
+  RSpec.describe Attribute do
   end
 end

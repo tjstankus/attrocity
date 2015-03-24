@@ -4,7 +4,7 @@ module Attrocity
   describe ValueAttributeMethodsBuilder do
     let(:object) { Object.new }
     let(:attr_name) { :a_string }
-    let(:attribute) { ValueAttribute.new(attr_name, 'hello') }
+    let(:attribute) { Attribute.new(attr_name, 'hello') }
     subject { described_class.new(object, Array(attribute)) }
 
     describe '#define_reader' do

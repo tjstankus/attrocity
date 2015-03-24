@@ -1,9 +1,7 @@
 module Attrocity
   RSpec.describe ValueAttributeSet do
-    let(:attrs) {
-      [ValueAttribute.new(:foo, 1),
-       ValueAttribute.new(:bar, 2) ]
-    }
+    let(:attrs) { [Attribute.new(:foo, 1), Attribute.new(:bar, 2) ] }
+
     subject(:attribute_set) { described_class.new }
 
     describe '#<<' do

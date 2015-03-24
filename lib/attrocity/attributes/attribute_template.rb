@@ -11,7 +11,7 @@ module Attrocity
 
     def to_value_attribute(data)
       val = ValueExtractor.new(data, mapper: mapper, coercer: coercer).value
-      ValueAttribute.new(name, val)
+      Attribute.new(name, val)
     end
 
   end
