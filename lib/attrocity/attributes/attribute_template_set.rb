@@ -28,7 +28,7 @@ module Attrocity
     end
 
     def to_value_attribute_set(data)
-      ValueAttributeSet.new.tap do |set|
+      AttributeSet.new.tap do |set|
         self.attributes.each { |attr| set << attr.to_value_attribute(data) }
       end
     end

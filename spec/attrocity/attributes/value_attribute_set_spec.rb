@@ -1,5 +1,5 @@
 module Attrocity
-  RSpec.describe ValueAttributeSet do
+  RSpec.describe AttributeSet do
     let(:attrs) { [Attribute.new(:foo, 1), Attribute.new(:bar, 2) ] }
 
     subject(:attribute_set) { described_class.new }

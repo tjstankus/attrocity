@@ -1,5 +1,5 @@
 module Attrocity
-  class ValueAttributeSet
+  class AttributeSet
 
     attr_reader :attributes
 
