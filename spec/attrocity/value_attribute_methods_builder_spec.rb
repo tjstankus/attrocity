@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Attrocity
-  describe ValueAttributeMethodsBuilder do
+  describe AttributeMethodsBuilder do
     let(:object) { Object.new }
     let(:attr_name) { :a_string }
     let(:attribute) { Attribute.new(attr_name, 'hello') }

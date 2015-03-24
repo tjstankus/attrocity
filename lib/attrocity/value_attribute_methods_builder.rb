@@ -1,5 +1,5 @@
 module Attrocity
-  class ValueAttributeMethodsBuilder
+  class AttributeMethodsBuilder
 
     attr_reader :object, :attributes
 

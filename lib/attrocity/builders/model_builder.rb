@@ -31,7 +31,7 @@ module Attrocity
       end
 
       def build_attributes_methods
-        ValueAttributeMethodsBuilder.for_attribute_set(self, attribute_set).build
+        AttributeMethodsBuilder.for_attribute_set(self, attribute_set).build
       end
 
       def setup_model_attributes
