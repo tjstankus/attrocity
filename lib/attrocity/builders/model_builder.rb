@@ -44,7 +44,7 @@ module Attrocity
       end
 
       def model_attributes
-        @model_attributes ||= self.class.model_attribute_set.model_attributes
+        @model_attributes ||= self.class.model_attribute_set.attributes
       end
 
       def model_attributes_hash
