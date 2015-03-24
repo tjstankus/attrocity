@@ -29,7 +29,9 @@ module Attrocity
 
     def to_attribute_set(data)
       AttributeSet.new.tap do |set|
-        self.attributes.each { |attr| set << attr.to_attribute(data) }
+        self.attributes.each do |attr_template|
+          set << attr_template.to_attribute(data)
+        end
       end
     end
 
