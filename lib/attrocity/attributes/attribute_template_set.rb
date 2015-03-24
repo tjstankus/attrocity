@@ -27,9 +27,9 @@ module Attrocity
       attributes.detect { |att| att.name == name }
     end
 
-    def to_value_attribute_set(data)
+    def to_attribute_set(data)
       AttributeSet.new.tap do |set|
-        self.attributes.each { |attr| set << attr.to_value_attribute(data) }
+        self.attributes.each { |attr| set << attr.to_attribute(data) }
       end
     end
 

@@ -9,7 +9,7 @@ module Attrocity
       @mapper = mapping
     end
 
-    def to_value_attribute(data)
+    def to_attribute(data)
       val = ValueExtractor.new(data, mapper: mapper, coercer: coercer).value
       Attribute.new(name, val)
     end

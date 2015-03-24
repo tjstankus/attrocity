@@ -27,7 +27,7 @@ module Attrocity
       private
 
       def init_value_attributes
-        self.class.attribute_set.to_value_attribute_set(raw_data)
+        self.class.attribute_set.to_attribute_set(raw_data)
       end
 
       def build_attributes_methods
