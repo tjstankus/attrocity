@@ -36,8 +36,7 @@ module Attrocity
   end
 
   module ModuleMethods
-    def attribute(name, coercer:, default: nil,
-                  from: Attrocity.default_mapper(name, default))
+    def attribute(name, coercer:, default: nil, from: name)
       coercer = CoercerRegistry.instance_for(coercer)
       attribute_set << AttributeTemplate.new(name, coercer, mapper(from, default))
     end
@@ -52,8 +51,9 @@ module Attrocity
       if mapping.respond_to?(:call)
         mapping
       else
-        Attrocity.default_mapper(mapping, default)
-      end
+        Attrocity.default_mapper
+        # Attrocity.default_mapper(mapping, default)
+      end.new(our_normalize_api_args)
     end
 
     def attribute_set
