@@ -51,9 +51,9 @@ module Attrocity
       if mapping.respond_to?(:call)
         mapping
       else
-        Attrocity.default_mapper
-        # Attrocity.default_mapper(mapping, default)
-      end.new(our_normalize_api_args)
+        # Attrocity.default_mapper
+        Attrocity.default_mapper(mapping, default)
+      end # .new(mapper_config)
     end
 
     def attribute_set
