@@ -4,26 +4,6 @@ Notes
 Current refactorings
 --------------------
 
-- [x] Rename Attribute => AttributeFactory
-
-- [x] Rename AttributeSet to AttributeTemplateSet
-
-- [x] Rename ValueAttribute => Attribute
-
-- [ ] Generalize the various AttributeSets? What exactly are we using attribute
-  sets for at this point?
-
-AttributeSet
-  - Same as ModelAttributeSet + to_h
-
-AttributeTemplateSet
-  -
-
-ModelAttributeSet
-  - initialize
-  - reader for collection
-  - add, aliased to <<
-
 - [ ] Process pending specs: delete unnecessary, make valid ones pass.
 
 Handling missing data
