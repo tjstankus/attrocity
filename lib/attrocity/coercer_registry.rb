@@ -16,8 +16,12 @@ module Attrocity
       registry[name]
     end
 
-    def self.instance_for(name)
-      coercer_for(name).new
+    def self.instance_for(name, params={})
+      if params.empty?
+        coercer_for(name).new
+      else
+        coercer_for(name).new(params)
+      end
     end
 
     private

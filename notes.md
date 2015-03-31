@@ -1,6 +1,26 @@
 Notes
 =====
 
+Mappers/Coercers data injection
+-------------------------------
+
+The crux of the issue is that for mapping or coercing I might want to inject
+some values, such as null values to compare against. These values differ on a
+per-attribute basis.
+
+The library calls specific methods with specific arguments. I need to get those
+args into the library.
+
+It does feel like more of a coercion problem than a mapping problem. I think I
+originally reached for the mapper because I thought I had more control.
+
+- [ ] ? Via coercer registry?
+
+- [ ] ? Change to the attribute DSL for coercer? Pass hash with args? If not a
+  hash, but simply a symbol, assume it's the name?
+
+- [ ] ? How might we do this with blocks?
+
 Current refactorings
 --------------------
 

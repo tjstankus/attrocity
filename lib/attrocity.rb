@@ -31,14 +31,23 @@ module Attrocity
     ObjectExtensionBuilder.new
   end
 
-  def self.default_mapper(name, default_value)
-    KeyMapper.new(name, default_value)
+  def self.default_mapper
+    KeyMapper
   end
 
   module ModuleMethods
     def attribute(name, coercer:, default: nil, from: name)
-      coercer = CoercerRegistry.instance_for(coercer)
+      coercer = CoercerRegistry.instance_for(*coercer_args(coercer))
       attribute_set << AttributeTemplate.new(name, coercer, mapper(from, default))
+    end
+
+    def coercer_args(args)
+      if args.is_a?(Symbol)
+        [args, {}]
+      elsif args.is_a?(Hash)
+        name = args.delete(:name)
+        [name, args]
+      end
     end
 
     def model_attribute(name, model:)
@@ -51,9 +60,8 @@ module Attrocity
       if mapping.respond_to?(:call)
         mapping
       else
-        # Attrocity.default_mapper
-        Attrocity.default_mapper(mapping, default)
-      end # .new(mapper_config)
+        Attrocity.default_mapper.new(mapping, default)
+      end
     end
 
     def attribute_set
