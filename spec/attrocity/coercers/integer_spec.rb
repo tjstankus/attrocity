@@ -9,13 +9,15 @@ module Attrocity
         expect(coercer.coerce('1')).to eq(1)
       end
 
-      it 'raises coercion error for unsupported coercion' do
-        expect { coercer.coerce('') }.to raise_error(Attrocity::CoercionError)
-      end
-
       describe 'given nil' do
         it 'returns nil' do
           expect(coercer.coerce(nil)).to be_nil
+        end
+      end
+
+      describe 'given an empty string' do
+        it 'returns nil' do
+          expect(coercer.coerce('')).to be_nil
         end
       end
     end
