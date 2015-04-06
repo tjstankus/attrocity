@@ -3,7 +3,7 @@ module Attrocity
     class String
       def coerce(value)
         if value.nil?
-          value
+          nil
         else
           String(value)
         end
