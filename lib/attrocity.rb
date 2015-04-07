@@ -71,8 +71,20 @@ module Attrocity
     def model_attribute_set
       @model_attribute_set ||= ModelAttributeSet.new
     end
-  end
 
+    def from_mapped_data(data)
+      attrs = attribute_set.attributes
+      self.new(
+        Hash.new.tap do |h|
+          data.each do |k,v|
+            # TODO: Use more efficient enumerable method
+            key = attrs.collect { |attr| attr.mapper_key_for(k) }.compact.first
+            h[key] = v if key
+          end
+        end
+      )
+    end
+  end
 end
 
 Attrocity::CoercerRegistry.register do

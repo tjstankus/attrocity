@@ -14,6 +14,15 @@ module Attrocity
       Attribute.new(name, val)
     end
 
+    def mapper_key_for(key)
+      key = key.to_s
+      if name.to_s == key || mapper.key.to_s == key
+        mapper.key
+      else
+        nil
+      end
+    end
+
   end
 end
 

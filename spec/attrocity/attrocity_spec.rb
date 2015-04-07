@@ -71,16 +71,13 @@ module Attrocity
       end
     end
 
-    describe '#unmapped_attributes' do
-      it 'forwards to attribute_set'
-    end
-
-    describe '#attributes' do
-      it 'forwards to attribute_set'
-    end
-
-    describe '#raw_data' do
-      it 'is not mutated'
+    describe '.from_mapped_data' do
+      it 'returns an instantiated model' do
+        data = { street: '1234 Elm', zip: '27517' }
+        address = Examples::Address.from_mapped_data(data)
+        expect(address.street).to eq('1234 Elm')
+        expect(address.zip).to eq('27517')
+      end
     end
   end
 end
