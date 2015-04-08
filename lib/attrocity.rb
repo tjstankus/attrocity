@@ -72,7 +72,7 @@ module Attrocity
       @model_attribute_set ||= ModelAttributeSet.new
     end
 
-    def from_mapped_data(data)
+    def model_from_mapped_data(data)
       attrs = attribute_set.attributes
       self.new(
         Hash.new.tap do |h|
@@ -82,7 +82,7 @@ module Attrocity
             h[key] = v if key
           end
         end
-      )
+      ).model
     end
   end
 end
