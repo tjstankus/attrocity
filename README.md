@@ -4,6 +4,10 @@ Attrocity
 You should totally be using [Virtus](https://github.com/solnic/virtus) instead.
 This gem is a work in progress.
 
+The original code for this gem was written as an employee of
+[RentPath](http://rentpath.com). Since I left RentPath in April 2015, the gem
+has not been touched, so I'm taking over.
+
 ## Installation
 
 Add this line to your application's Gemfile:
