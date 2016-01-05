@@ -58,7 +58,7 @@ module Attrocity
               attribute :foo, coercer: :xyz
             end
           end
-        }.to raise_error
+        }.to raise_error(UnknownCoercerError)
       end
     end
 

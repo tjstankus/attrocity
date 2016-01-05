@@ -1,4 +1,7 @@
 module Attrocity
+
+  UnknownCoercerError = Class.new(StandardError)
+
   class CoercerRegistry
     def self.register(&block)
       class_eval(&block) if block_given?
@@ -13,7 +16,9 @@ module Attrocity
     end
 
     def self.coercer_for(name)
-      registry[name]
+      registry.fetch(name)
+    rescue KeyError
+      raise UnknownCoercerError
     end
 
     def self.instance_for(name, params={})
@@ -31,4 +36,3 @@ module Attrocity
     end
   end
 end
-
