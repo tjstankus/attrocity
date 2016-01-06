@@ -56,21 +56,19 @@ module Attrocity
       include Attrocity.model
 
       attribute :low, coercer: { name: :null_values, null_values: ['0'] },
-                from: :depositlow
+        from: :depositlow
       attribute :high, coercer: { name: :null_values, null_values: ['999999'] },
-                from: :deposithigh
+        from: :deposithigh
     end
 
     def self.integer_attribute(name=:an_integer)
       Attrocity::Attribute.new(name,
-                               Attrocity::Coercers::Integer.new,
-                               default_mapper(name))
+        Attrocity::Coercers::Integer.new, default_mapper(name))
     end
 
     def self.string_attribute(name=:a_string)
       Attrocity::Attribute.new(name,
-                               Attrocity::Coercers::String.new,
-                               default_mapper(name))
+        Attrocity::Coercers::String.new, default_mapper(name))
     end
 
     def self.default_mapper(key)
@@ -79,4 +77,3 @@ module Attrocity
 
   end
 end
-
