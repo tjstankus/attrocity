@@ -1,60 +1,40 @@
-Notes
-=====
+# Notes
 
-Mappers/Coercers data injection
--------------------------------
+## Mappers/Coercers data injection
 
-The crux of the issue is that for mapping or coercing I might want to inject
-some values, such as null values to compare against. These values differ on a
-per-attribute basis.
+The crux of the issue is that for mapping or coercing I might want to inject some values, such as null values to compare against. These values differ on a per-attribute basis.
 
-The library calls specific methods with specific arguments. I need to get those
-args into the library.
+The library calls specific methods with specific arguments. I need to get those args into the library.
 
-It does feel like more of a coercion problem than a mapping problem. I think I
-originally reached for the mapper because I thought I had more control.
+It does feel like more of a coercion problem than a mapping problem. I think I originally reached for the mapper because I thought I had more control.
 
 - [ ] ? Via coercer registry?
 
-- [ ] ? Change to the attribute DSL for coercer? Pass hash with args? If not a
-  hash, but simply a symbol, assume it's the name?
+- [ ] ? Change to the attribute DSL for coercer? Pass hash with args? If not a hash, but simply a symbol, assume it's the name?
 
 - [ ] ? How might we do this with blocks?
 
-Current refactorings
---------------------
+## Current refactorings
 
 - [ ] Process pending specs: delete unnecessary, make valid ones pass.
 
-Handling missing data
----------------------
+## Handling missing data
 
 I think these are the rules...
 
-It should probably be nil. Perhaps if the mapper returns nil we don't even
-bother coercing it. There's a concept here and it's around extracting data.
-Every attribute has a coercer, by rule of API, and every attribute has a mapper,
-either explicitly declared or the default KeyMapper. When an attribute is
-missing, in other words when the mapper cannot extract data (returns nil), the
-default value is applied. The "default" default value is nil. When the default
-value is applied, no coercion is performed.
+It should probably be nil. Perhaps if the mapper returns nil we don't even bother coercing it. There's a concept here and it's around extracting data. Every attribute has a coercer, by rule of API, and every attribute has a mapper, either explicitly declared or the default KeyMapper. When an attribute is missing, in other words when the mapper cannot extract data (returns nil), the default value is applied. The "default" default value is nil. When the default value is applied, no coercion is performed.
 
-ValueExtractor (or a better named class) takes a mapper, a coercer, and a
-default value, which defaults to nil.
+ValueExtractor (or a better named class) takes a mapper, a coercer, and a default value, which defaults to nil.
 
 - [ ] Write up some spec/examples and also for the README
 
-Attributes
-----------
+## Attributes
 
 ### Collaborators
 
 In which collaborator would it most make sense to add in default value behavior?
 
-Mapper: Simply retrieves the data from raw attributes data. `call` it with an
-object and a hash of data and it returns a value. It might return nil.
-Potentially, it could accept a default and fallback to that value, but I'm not
-sure that's within the responsibility of this object.
+Mapper: Simply retrieves the data from raw attributes data. `call` it with an object and a hash of data and it returns a value. It might return nil. Potentially, it could accept a default and fallback to that value, but I'm not sure that's within the responsibility of this object.
 
 Coercer: Simply assures the data its passed comes back as the correct type.
 
@@ -125,8 +105,7 @@ Is options a class or a module?
 
 Options attributes are first-class attributes (with coercion, mapping, etc.)
 
-TODO
-----
+# TODO
 
 - Convert all specs to require spec_helper
 
@@ -272,4 +251,3 @@ Documentation for README
 
 Attribute values are set and retrieved through their containing AttributeSet.
 The Attribute set acts as an aggregate root (in DDD parlance).
-
