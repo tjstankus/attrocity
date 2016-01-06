@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    attrocity (0.1.1)
+    attrocity (0.1.2)
       hashie (~> 3.4)
 
 GEM
